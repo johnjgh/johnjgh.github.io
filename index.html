@@ -62,9 +62,362 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-git for window使用方法" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Python-各种推导式用法" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/03/22/git for window使用方法/" class="article-date">
+    <a href="/2019/03/22/Python-各种推导式用法/" class="article-date">
+  <time datetime="2019-03-22T03:08:52.000Z" itemprop="datePublished">2019-03-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/22/Python-各种推导式用法/">Python 各种推导式用法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>python的推导式包括列表推导式、字典推导式和集合推导式</strong></p>
+<h2 id="列表推导式"><a href="#列表推导式" class="headerlink" title="列表推导式"></a>列表推导式</h2><p>列表推导式的书写形式一般为：[表达式 for 变量 in 列表]  或者  [表达式 for 变量 in 列表 if 条件]<br>其中表达式可以包含多个变量或元素，后面跟上一个for语句的循环，对列表、元组或集合等序列进行遍历，当需要筛选序列中的元素时可以用if条件语句进行判断，if语句可以有多个，代表多个条件。<br>例：</p>
+<pre><code>list0 =  [x**2 for x in range(10)]
+</code></pre><p>x**2是包含一个变量的表达式，后面跟上一个for语句对range(10)进行遍历，得到的是<code>list0=[1, 4, 9, 16, 25, 36, 49, 64, 81]</code>。</p>
+<pre><code>list1 = [x**2 for x in range(10) if x&gt;5]
+</code></pre><p>这里对遍历得到的每个x的值进行判断，当满足条件时才会代入表达式中，得到的是<code>list1=[36, 49, 64, 81]</code>。</p>
+<pre><code>list2 = [(x, y) for x in range(10) if x % 2 if x &gt; 3 for y in range(10) if y &gt; 7 if y != 8]
+</code></pre><p>(x,y)这个表达式包含两个变量，则后面需要用两个for语句分别获得x,y的值，每个变量有两个条件进行限制，得到的是<code>list2=[(5, 9), (7, 9), (9, 9)]</code>。</p>
+<p><strong>注：当把列表推导式的[]符号更换为()时得到的结果是一个生成器</strong></p>
+<h2 id="字典推导式"><a href="#字典推导式" class="headerlink" title="字典推导式"></a>字典推导式</h2><p>字典推导式和列表推导式类似，只是字典推导式的表达式形式是键值对的形式，使用的括号是花括号{}。<br>例：</p>
+<pre><code>m = {&quot;a&quot;:1, &quot;b&quot;:2, &quot;c&quot;:3, &quot;d&quot;:4}
+dict0={v:k for k,v in m.items()}
+</code></pre><p>这个推导式可以将字典m的键和值互相调换，得到的是<code>dict0={1: &#39;a&#39;, 2: &#39;b&#39;, 3: &#39;c&#39;, 4: &#39;d&#39;}</code></p>
+<h2 id="集合推导式"><a href="#集合推导式" class="headerlink" title="集合推导式"></a>集合推导式</h2><p>集合推导式跟列表推导式也是类似的,它的区别在于它使用的是花括号{}，由于集合具有唯一性，所以得到的集合中没有重复的元素。<br>例：</p>
+<pre><code>s = {i*2 for i in [1,1,2]}
+</code></pre><p>结果为<code>s = {2,4}</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/22/Python-各种推导式用法/" data-id="cjtjhp7ex0007wsw9yske9im7" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Python-第三方库requests常用用法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/22/Python-第三方库requests常用用法/" class="article-date">
+  <time datetime="2019-03-22T03:08:04.000Z" itemprop="datePublished">2019-03-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/22/Python-第三方库requests常用用法/">Python 第三方库requests常用用法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="get请求"><a href="#get请求" class="headerlink" title="get请求"></a>get请求</h2><pre><code>response =requests.get(url,params,headers,cookies,timeout)
+</code></pre><p>其中url是请求的网页地址，params可以传递参数，一般是字典的数据格式，headers是请求头，也是字典的格式，一般包含UA信息（User-Agent）和Referer（防盗链）。timeout是设置超时的时间。</p>
+<p>response.text  返回headers中的编码解析的结果</p>
+<p>response.content 返回二进制结果</p>
+<p>response.json() 返回JSON格式，等同于json.loads（response.text）方法，可能抛出异常。</p>
+<p>response.status_code 返回获取网页时的状态码，200为正常访问。</p>
+<p>response.raw 返回原始socket respons，需要加参数stream=True。</p>
+<p>response.encoding 可以定义网页的编码方式</p>
+<h2 id="post请求"><a href="#post请求" class="headerlink" title="post请求"></a>post请求</h2><pre><code>response = requests.post(url,data,files)
+</code></pre><p>url是提交请求的网址，data是一个字典形式的数据表单，files是在文件上传时使用的，需要传入一个类似于{‘files’:open(文件路径,mode)}的字典。</p>
+<h2 id="会话保持（session）"><a href="#会话保持（session）" class="headerlink" title="会话保持（session）"></a>会话保持（session）</h2><p>cookies的一个作用就是可以用于模拟登陆，做会话维持，而使用session可以将cookies信息保存下来，下次请求时就不需要再次传入cookies。</p>
+<pre><code>session = requests.Session()
+</code></pre><p><code>session.get(url)</code> 将网页的cookies信息传入session中，下次访问网页时会自动传入cookies。</p>
+<h2 id="证书验证"><a href="#证书验证" class="headerlink" title="证书验证"></a>证书验证</h2><p>在<code>requests.get(url,verify)</code>中verify默认是True，可以设为False，会跳过证书验证，也可以设为一个证书路径，则会验证该指定证书。</p>
+<h2 id="设置代理"><a href="#设置代理" class="headerlink" title="设置代理"></a>设置代理</h2><pre><code>proxies = {
+    &quot;http&quot;: &quot;http://user:password@127.0.0.1:9743/&quot;,
+    &quot;https&quot;: &quot;https://user:password@127.0.0.1:9743&quot;,
+}
+</code></pre><p>当需要用户名和密码时就要添加“user:password@”这一段，如果不需要密码，则去除这一段。<br>通过<code>response = requests.get(url, proxies=proxies)</code>使用代理ip来访问网页。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/22/Python-第三方库requests常用用法/" data-id="cjtjhp7en0002wsw9z7alpsi3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Python-文件读写操作" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/22/Python-文件读写操作/" class="article-date">
+  <time datetime="2019-03-22T03:07:51.000Z" itemprop="datePublished">2019-03-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/22/Python-文件读写操作/">python 文件读写操作</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>file = open(file_name，mode)<br><strong>mode(打开文件的模式)：</strong><br>t    文本模式 (默认)。</p>
+<p>x    写模式，新建一个文件，如果该文件已存在则会报错。</p>
+<p>b    二进制模式。</p>
+<p><em>+</em> 打开一个文件进行更新(可读可写)。</p>
+<p>r    以只读方式打开文件。文件的指针将会放在文件的开头。这是默认模式。</p>
+<p>rb    以二进制格式打开一个文件用于只读。文件指针将会放在文件的开头。这是默认模式。一般用于非文本文件如图片等。</p>
+<p>r+    打开一个文件用于读写。文件指针将会放在文件的开头。</p>
+<p>rb+    以二进制格式打开一个文件用于读写。文件指针将会放在文件的开头。一般用于非文本文件如图片等。</p>
+<p>w    打开一个文件只用于写入。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。</p>
+<p>wb    以二进制格式打开一个文件只用于写入。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。一般用于非文本文件如图片等。</p>
+<p>w+    打开一个文件用于读写。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。</p>
+<p>wb+    以二进制格式打开一个文件用于读写。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。一般用于非文本文件如图片等。</p>
+<p>a    打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，创建新文件进行写入。</p>
+<p>ab    以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，创建新文件进行写入。</p>
+<p>a+    打开一个文件用于读写。如果该文件已存在，文件指针将会放在文件的结尾。文件打开时会是追加模式。如果该文件不存在，创建新文件用于读写。</p>
+<p>ab+    以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。如果该文件不存在，创建新文件用于读写。</p>
+<p>file.close()：关闭文件<br>file.read()：读取文件<br>file.seek()：将指针定位到指定位置<br>file.flush()：刷新文件，如写文件后不想关闭文件，可以刷新后查看文件。<br>tell()：返回指针当前的位置</p>
+<p>file.closed：返回true如果文件已被关闭，否则返回false。<br>file.mode：返回被打开文件的访问模式。<br>file.name：返回文件的名称。<br>file.softspace：如果用print输出后，必须跟一个空格符，则返回false，否则返回true。</p>
+<p>注：使用open()打开文件后需要在读写完成后使用close()方法关闭文件。使用with open(‘文件路径’) as f: 可以自动调用f.close()而不需要在后面单独写一行代码关闭文件。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/22/Python-文件读写操作/" data-id="cjtjhp7ep0003wsw9w6rbstzp" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Python-os和os-path模块常用的方法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/22/Python-os和os-path模块常用的方法/" class="article-date">
+  <time datetime="2019-03-22T03:07:35.000Z" itemprop="datePublished">2019-03-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/22/Python-os和os-path模块常用的方法/">Python os和os.path模块常用的方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>os</strong><br>os.sep:取代操作系统特定的路径分隔符（如‘\’等）<br>os.name:指示你正在使用的工作平台。比如对于Windows，它是’nt’，而对于Linux/Unix用户，它是’posix’。<br>os.getcwd:得到当前工作目录，即当前python脚本工作的目录路径。<br>os.getenv()和os.putenv:分别用来读取和设置环境变量<br>os.listdir():返回指定目录下的所有文件和目录名<br>os.remove(file):删除一个文件<br>os.stat（file）:获得文件属性<br>os.chmod(file):修改文件权限和时间戳<br>os.mkdir(name):创建目录<br>os.rmdir(name):删除目录<br>os.removedirs（r“c：\python”）:删除多个目录<br>os.system():运行shell命令<br>os.exit():终止当前进程<br>os.linesep:给出当前平台的行终止符。例如，Windows使用’\r\n’，Linux使用’\n’而Mac使用’\r’<br>os.listdir(dirname):列出dirname下的目录和文件<br>os.getcwd():获得当前工作目录<br>os.curdir:返回当前目录（’.’）<br>os.chdir(dirname):改变工作目录到dirname<br><strong>os.path</strong><br>os.path.split():返回一个路径的目录名和文件名<br>os.path.isfile()和os.path.isdir()分别检验给出的路径是一个目录还是文件<br>os.path.exists():检验给出的路径是否真的存在<br>os.path.isdir(name):判断name是不是目录，不是目录就返回false<br>os.path.isfile(name):判断name这个文件是否存在，不存在返回false<br>os.path.exists(name):判断是否存在文件或目录name<br>os.path.getsize(name):或得文件大小，如果name是目录返回0L<br>os.path.abspath(name):获得绝对路径<br>os.path.isabs():判断是否为绝对路径<br>os.path.normpath(path):规范path字符串形式<br>os.path.split(name):分割文件名与目录（事实上，如果你完全使用目录，它也会将最后一个目录作为文件名而分离，同时它不会判断文件或目录是否存在）<br>os.path.splitext():分离文件名和扩展名<br>os.path.join(path,name):连接目录与文件名或目录<br>os.path.basename(path):返回文件名<br>os.path.dirname(path):返回文件路径</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/22/Python-os和os-path模块常用的方法/" data-id="cjtjhp7eu0005wsw9dol0d8so" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Python-列表、元组、字符串、字典和集合常用的内置方法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/22/Python-列表、元组、字符串、字典和集合常用的内置方法/" class="article-date">
+  <time datetime="2019-03-22T03:07:05.000Z" itemprop="datePublished">2019-03-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/22/Python-列表、元组、字符串、字典和集合常用的内置方法/">Python 列表、元组、字符串、字典和集合常用的内置方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>python中的数据类型主要分为列表list、元组tuple、字符串str、字典dict、集合set。</strong></p>
+<h2 id="列表（可变序列）"><a href="#列表（可变序列）" class="headerlink" title="列表（可变序列）"></a><strong>列表（可变序列）</strong></h2><p>append()：在最后增加一个元素。</p>
+<p>extend()：扩展列表（用另一个列表）。</p>
+<p>count()     ：计算并返回指定元素的数量。</p>
+<p>remove()：删除一个元素。</p>
+<p>pop()：删除并返回最后一个元素。</p>
+<p>sort()：按照从小到大排序。</p>
+<p>insert()：在指定位置插入一个元素。</p>
+<p>copy()：拷贝一个副本。</p>
+<p>clear()：清空所有元素。</p>
+<p>reverse()：原地翻转所有的数据。</p>
+<p>index()：寻找并返回参数的索引值。</p>
+<p><strong>通用操作：(s表示列表）</strong><br>s[i:j:k]切片获取i到j之间的元素，包括i，不包括j，k表示步长，每隔k个获取一个元素。<br>s[i:j]=t 改变s中一段元素为一个元素t。<br>del s[i] 删除下标为i的元素。<br>del s[i:j] 删除一段元素。</p>
+<h2 id="元组（不可变序列）"><a href="#元组（不可变序列）" class="headerlink" title="元组（不可变序列）"></a>元组（不可变序列）</h2><p>元组中的元素不可删除，不可改变，不可增加，只能用index和count两种方法</p>
+<h2 id="字符串（不可变序列）"><a href="#字符串（不可变序列）" class="headerlink" title="字符串（不可变序列）"></a><strong>字符串（不可变序列）</strong></h2><p>capitalize()：将字符串的第一个字符转换为大写。</p>
+<p>center(width, fillchar)：返回一个指定的宽度 width 居中的字符串，fillchar 为填充的字符，默认为空格。</p>
+<p>count(str, beg= 0,end=len(string))：返回 str 在 string 里面出现的次数，如果 beg 或者 end 指定则返回指定范围内 str 出现的次数。</p>
+<p>bytes.decode(encoding=”utf-8”, errors=”strict”)：Python3 中没有 decode 方法，但我们可以使用 bytes 对象的 decode() 方法来解码给定的 bytes 对象，这个 bytes 对象可以由 str.encode() 来编码返回。</p>
+<p>encode(encoding=’UTF-8’,errors=’strict’)：以 encoding 指定的编码格式编码字符串，如果出错默认报一个ValueError 的异常，除非 errors 指定的是’ignore’或者’replace’。</p>
+<p>endswith(suffix, beg=0, end=len(string))：检查字符串是否以 obj 结束，如果beg 或者 end 指定则检查指定的范围内是否以 obj 结束，如果是，返回 True,否则返回 False。</p>
+<p>expandtabs(tabsize=8)：把字符串 string 中的 tab 符号转为空格，tab 符号默认的空格数是 8 。</p>
+<p>find(str, beg=0 end=len(string))：检测 str 是否包含在字符串中 中，如果 beg 和 end 指定范围，则检查是否包含在指定范围内，如果是返回开始的索引值，否则返回-1。</p>
+<p>index(str, beg=0, end=len(string))：跟find()方法一样，只不过如果str不在字符串中会报一个异常。</p>
+<p>isalnum()：如果字符串至少有一个字符并且所有字符都是字母或数字则返回 True,否则返回 False。</p>
+<p>isalpha()：如果字符串至少有一个字符并且所有字符都是字母则返回 True,否则返回 False。</p>
+<p>isdigit()：如果字符串只包含数字则返回 True 否则返回 False。</p>
+<p>islower()：如果字符串中包含至少一个区分大小写的字符，并且所有这些(区分大小写的)字符都是小写，则返回 True，否则返回 False。</p>
+<p>isnumeric()：如果字符串中只包含数字字符，则返回 True，否则返回 False。</p>
+<p>isspace()：如果字符串中只包含空格，则返回 True，否则返回 False。</p>
+<p>istitle()：如果字符串是标题化的(见 title())则返回 True，否则返回 False。</p>
+<p>isupper()：如果字符串中包含至少一个区分大小写的字符，并且所有这些(区分大小写的)字符都是大写，则返回 True，否则返回 False。</p>
+<p>join(seq)：以指定字符串作为分隔符，将 seq 中所有的元素(的字符串表示)合并为一个新的字符串。</p>
+<p>ljust(width[, fillchar])：返回一个原字符串左对齐,并使用 fillchar 填充至长度 width 的新字符串，fillchar 默认为空格。</p>
+<p>lower()：转换字符串中所有大写字符为小写。</p>
+<p>lstrip()：截掉字符串左边的空格。</p>
+<p>maketrans()：创建字符映射的转换表，对于接受两个参数的最简单的调用方式，第一个参数是字符串，表示需要转换的字符，第二个参数也是字符串表示转换的目标。</p>
+<p>replace(old, new [, max])：把将字符串中的 str1 替换成 str2,如果 max 指定，则替换不超过 max 次。</p>
+<p>rfind(str, beg=0,end=len(string))：类似于 find()函数，不过是从右边开始查找。</p>
+<p>rindex( str, beg=0, end=len(string))：类似于 index()，不过是从右边开始。</p>
+<p>rjust(width,[, fillchar])：返回一个原字符串右对齐,并使用fillchar(默认空格）填充至长度 width 的新字符串。</p>
+<p>rstrip()删除字符串字符串末尾的空格。</p>
+<p>split(str=””, num=string.count(str))：num=string.count(str))以 str 为分隔符截取字符串，如果 num 有指定值，则仅截取 num 个子字符串。</p>
+<p>splitlines([keepends])：按照行(‘\r’, ‘\r\n’, \n’)分隔，返回一个包含各行作为元素的列表，如果参数 keepends 为 False，不包含换行符，如果为 True，则保留换行符。</p>
+<p>startswith(str, beg=0,end=len(string))：检查字符串是否是以 obj 开头，是则返回 True，否则返回 False。如果beg 和 end 指定值，则在指定范围内检查。</p>
+<p>strip([chars])：在字符串上执行 lstrip()和 rstrip()。</p>
+<p>swapcase()：将字符串中大写转换为小写，小写转换为大写。</p>
+<p>title()：返回”标题化”的字符串,就是说所有单词都是以大写开始，其余字母均为小写。</p>
+<p>translate(table, deletechars=””)<br>根据 str 给出的表(包含 256 个字符)转换 string 的字符,要过滤掉的字符放到 deletechars 参数中</p>
+<p>upper()：转换字符串中的小写字母为大写 zfill (width)。</p>
+<p>zfill (width)：返回长度为 width 的字符串，原字符串右对齐，前面填充0</p>
+<p>isdecimal()：检查字符串是否只包含十进制字符，如果是返回 true，否则返回 false。</p>
+<h2 id="字典（映射）"><a href="#字典（映射）" class="headerlink" title="字典（映射）"></a>字典（映射）</h2><p>dict.clear()：删除字典内所有元素。</p>
+<p>dict.copy()：返回一个字典的浅复制。</p>
+<p>dict.fromkeys(seq[, val])：创建一个新字典，以序列 seq 中元素做字典的键，val 为字典所有键对应的初始值。</p>
+<p>dict.get(key, default=None)：返回指定键的值，如果值不在字典中返回default值。</p>
+<p>dict.has_key(key)：如果键在字典dict里返回true，否则返回false。</p>
+<p>dict.items()：以列表返回可遍历的(键, 值) 元组数组。</p>
+<p>dict.keys()：以列表返回一个字典所有的键。</p>
+<p>dict.setdefault(key, default=None)：和get()类似, 但如果键不存在于字典中，将会添加键并将值设为default。</p>
+<p>dict.update(dict2)：把字典dict2的键/值对更新到dict里。</p>
+<p>dict.values()：以列表返回字典中的所有值。</p>
+<p>pop(key[,default])：删除字典给定键 key 所对应的值，返回值为被删除的值。key值必须给出。 否则，返回default值。</p>
+<p>popitem()：随机返回并删除字典中的一对键和值。</p>
+<h2 id="集合：确定性、互异性、无序性"><a href="#集合：确定性、互异性、无序性" class="headerlink" title="集合：确定性、互异性、无序性"></a>集合：确定性、互异性、无序性</h2><p>add()：为集合添加元素。</p>
+<p>clear()：移除集合中的所有元素。</p>
+<p>copy()：拷贝一个集合。</p>
+<p>difference()：返回多个集合的差集。</p>
+<p>pop()：随机移除元素。</p>
+<p>remove()：移除指定元素。</p>
+<p>union()：返回两个集合的并集。</p>
+<p>update()：给集合添加元素，必须传入一个集合。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/22/Python-列表、元组、字符串、字典和集合常用的内置方法/" data-id="cjtjhp7ec0000wsw9a01a0owj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CSS网页布局基本属性" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/22/CSS网页布局基本属性/" class="article-date">
+  <time datetime="2019-03-22T03:05:59.000Z" itemprop="datePublished">2019-03-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/22/CSS网页布局基本属性/">CSS网页布局基本属性</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="css盒子模型"><a href="#css盒子模型" class="headerlink" title="css盒子模型"></a>css盒子模型</h2><p>css盒子模型包含了元素内容（content）、内边距（padding）、边框（border）、外边距（margin）几个要素。<br>内边距是指元素内容与边框的距离，边框（border）有宽度属性，外边距是指边框与其它盒子模型或网页body的距离。内外边距在使用时按照上（top）、右（right）、下（bottom）、左（left）分别赋值。</p>
+<p>外边距合并：两个上下方向相邻的元素框垂直相遇时，外边距会合并，合并后的外边距的高度等于两个发生合并的外边距中较高的那个边距值。</p>
+<p>box-sizing : content-box|border-box|inherit，box-sizing是用户界面属性里的一种，跟盒子模型有关，在css reset中有可能会用到它。</p>
+<p>content-box ,默认值，可以使设置的宽度和高度值应用到元素的内容框。盒子的width只包含内容。<br>即总宽度=margin+border+padding+width。</p>
+<p>border-box , 设置的width值其实是除margin外的border+padding+element的总宽度。盒子的width包含border+padding+内容。即总宽度=margin+width。很多CSS框架，都会对盒子模型的计算方法进行简化。</p>
+<p>inherit ,规定应从父元素继承 box-sizing 属性的值。</p>
+<h2 id="position"><a href="#position" class="headerlink" title="position"></a>position</h2><p>position有absolute、relative、fixed三个常用属性值，absolute是指生成绝对定位的元素，相对于 static 定位以外的第一个父元素进行定位；relative是指生成相对定位的元素，相对于其正常位置进行定位；fixed是指生成绝对定位的元素，相对于浏览器窗口进行定位，鼠标滚动时，元素始终与窗口保持固定的距离。</p>
+<h2 id="display"><a href="#display" class="headerlink" title="display"></a>display</h2><p>display常用的属性值有none、block、inline、inline-block，none：此元素不会被显示；block：此元素将显示为块级元素，此元素前后会带有换行符，使用block时元素后会换行；inline：默认，此元素会被显示为内联元素，元素前后没有换行符；inline-block    行内块元素，相当于一行内的一个块元素，元素高度会增大至行高。</p>
+<h2 id="float"><a href="#float" class="headerlink" title="float"></a>float</h2><p>float 定义元素在哪个方向浮动，float可以控制同一等级下之后的所有元素都向该方向浮动，后面的元素会逐一朝一个方向挨着，当空间不够时就进入下一行。</p>
+<h2 id="z-index"><a href="#z-index" class="headerlink" title="z-index"></a>z-index</h2><p>z-index可以控制页面元素在z轴方向上的前后，数值大的元素在上面，数值小的元素在下面。</p>
+<h2 id="clear"><a href="#clear" class="headerlink" title="clear"></a>clear</h2><p>clear：both可以用来清除同一等级的前面的第一个float的效果。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/22/CSS网页布局基本属性/" data-id="cjtjhp7ek0001wsw9kljdk29y" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-git-for-window使用方法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/22/git-for-window使用方法/" class="article-date">
   <time datetime="2019-03-22T02:49:11.000Z" itemprop="datePublished">2019-03-22</time>
 </a>
     
@@ -76,7 +429,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/22/git for window使用方法/">git for window使用方法</a>
+      <a class="article-title" href="/2019/03/22/git-for-window使用方法/">git for window使用方法</a>
     </h1>
   
 
@@ -105,7 +458,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/22/git for window使用方法/" data-id="cjtjhco1u0000b8w9nwruqdke" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/22/git-for-window使用方法/" data-id="cjtjhp7ev0006wsw9giocts0y" class="article-share-link">Share</a>
       
       
     </footer>
@@ -150,7 +503,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/22/hello-world/" data-id="cjtjhco2e0001b8w92bhr093w" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/22/hello-world/" data-id="cjtjhp7er0004wsw9ohyha7p0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -191,11 +544,23 @@
       <ul>
         
           <li>
-            <a href="/2019/03/22/git for window使用方法/">git for window使用方法</a>
+            <a href="/2019/03/22/Python-各种推导式用法/">Python 各种推导式用法</a>
           </li>
         
           <li>
-            <a href="/2019/03/22/hello-world/">Hello World</a>
+            <a href="/2019/03/22/Python-第三方库requests常用用法/">Python 第三方库requests常用用法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/Python-文件读写操作/">python 文件读写操作</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/Python-os和os-path模块常用的方法/">Python os和os.path模块常用的方法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/Python-列表、元组、字符串、字典和集合常用的内置方法/">Python 列表、元组、字符串、字典和集合常用的内置方法</a>
           </li>
         
       </ul>

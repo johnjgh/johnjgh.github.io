@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>CSS网页布局基本属性 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="css盒子模型css盒子模型包含了元素内容（content）、内边距（padding）、边框（border）、外边距（margin）几个要素。内边距是指元素内容与边框的距离，边框（border）有宽度属性，外边距是指边框与其它盒子模型或网页body的距离。内外边距在使用时按照上（top）、右（right）、下（bottom）、左（left）分别赋值。 外边距合并：两个上下方向相邻的元素框垂直相遇时">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS网页布局基本属性">
+<meta property="og:url" content="http://yoursite.com/2019/03/22/CSS网页布局基本属性/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="css盒子模型css盒子模型包含了元素内容（content）、内边距（padding）、边框（border）、外边距（margin）几个要素。内边距是指元素内容与边框的距离，边框（border）有宽度属性，外边距是指边框与其它盒子模型或网页body的距离。内外边距在使用时按照上（top）、右（right）、下（bottom）、左（left）分别赋值。 外边距合并：两个上下方向相邻的元素框垂直相遇时">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-22T03:06:17.118Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS网页布局基本属性">
+<meta name="twitter:description" content="css盒子模型css盒子模型包含了元素内容（content）、内边距（padding）、边框（border）、外边距（margin）几个要素。内边距是指元素内容与边框的距离，边框（border）有宽度属性，外边距是指边框与其它盒子模型或网页body的距离。内外边距在使用时按照上（top）、右（right）、下（bottom）、左（left）分别赋值。 外边距合并：两个上下方向相邻的元素框垂直相遇时">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-CSS网页布局基本属性" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/22/CSS网页布局基本属性/" class="article-date">
+  <time datetime="2019-03-22T03:05:59.000Z" itemprop="datePublished">2019-03-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CSS网页布局基本属性
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="css盒子模型"><a href="#css盒子模型" class="headerlink" title="css盒子模型"></a>css盒子模型</h2><p>css盒子模型包含了元素内容（content）、内边距（padding）、边框（border）、外边距（margin）几个要素。<br>内边距是指元素内容与边框的距离，边框（border）有宽度属性，外边距是指边框与其它盒子模型或网页body的距离。内外边距在使用时按照上（top）、右（right）、下（bottom）、左（left）分别赋值。</p>
+<p>外边距合并：两个上下方向相邻的元素框垂直相遇时，外边距会合并，合并后的外边距的高度等于两个发生合并的外边距中较高的那个边距值。</p>
+<p>box-sizing : content-box|border-box|inherit，box-sizing是用户界面属性里的一种，跟盒子模型有关，在css reset中有可能会用到它。</p>
+<p>content-box ,默认值，可以使设置的宽度和高度值应用到元素的内容框。盒子的width只包含内容。<br>即总宽度=margin+border+padding+width。</p>
+<p>border-box , 设置的width值其实是除margin外的border+padding+element的总宽度。盒子的width包含border+padding+内容。即总宽度=margin+width。很多CSS框架，都会对盒子模型的计算方法进行简化。</p>
+<p>inherit ,规定应从父元素继承 box-sizing 属性的值。</p>
+<h2 id="position"><a href="#position" class="headerlink" title="position"></a>position</h2><p>position有absolute、relative、fixed三个常用属性值，absolute是指生成绝对定位的元素，相对于 static 定位以外的第一个父元素进行定位；relative是指生成相对定位的元素，相对于其正常位置进行定位；fixed是指生成绝对定位的元素，相对于浏览器窗口进行定位，鼠标滚动时，元素始终与窗口保持固定的距离。</p>
+<h2 id="display"><a href="#display" class="headerlink" title="display"></a>display</h2><p>display常用的属性值有none、block、inline、inline-block，none：此元素不会被显示；block：此元素将显示为块级元素，此元素前后会带有换行符，使用block时元素后会换行；inline：默认，此元素会被显示为内联元素，元素前后没有换行符；inline-block    行内块元素，相当于一行内的一个块元素，元素高度会增大至行高。</p>
+<h2 id="float"><a href="#float" class="headerlink" title="float"></a>float</h2><p>float 定义元素在哪个方向浮动，float可以控制同一等级下之后的所有元素都向该方向浮动，后面的元素会逐一朝一个方向挨着，当空间不够时就进入下一行。</p>
+<h2 id="z-index"><a href="#z-index" class="headerlink" title="z-index"></a>z-index</h2><p>z-index可以控制页面元素在z轴方向上的前后，数值大的元素在上面，数值小的元素在下面。</p>
+<h2 id="clear"><a href="#clear" class="headerlink" title="clear"></a>clear</h2><p>clear：both可以用来清除同一等级的前面的第一个float的效果。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/22/CSS网页布局基本属性/" data-id="cjtjhp7ek0001wsw9kljdk29y" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/03/22/Python-列表、元组、字符串、字典和集合常用的内置方法/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Python 列表、元组、字符串、字典和集合常用的内置方法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/03/22/git-for-window使用方法/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">git for window使用方法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/22/Python-各种推导式用法/">Python 各种推导式用法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/Python-第三方库requests常用用法/">Python 第三方库requests常用用法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/Python-文件读写操作/">python 文件读写操作</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/Python-os和os-path模块常用的方法/">Python os和os.path模块常用的方法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/Python-列表、元组、字符串、字典和集合常用的内置方法/">Python 列表、元组、字符串、字典和集合常用的内置方法</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

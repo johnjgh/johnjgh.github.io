@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>python 文件读写操作 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="file = open(file_name，mode)mode(打开文件的模式)：t    文本模式 (默认)。 x    写模式，新建一个文件，如果该文件已存在则会报错。 b    二进制模式。 + 打开一个文件进行更新(可读可写)。 r    以只读方式打开文件。文件的指针将会放在文件的开头。这是默认模式。 rb    以二进制格式打开一个文件用于只读。文件指针将会放在文件的开头。这是默认模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python 文件读写操作">
+<meta property="og:url" content="http://yoursite.com/2019/03/22/Python-文件读写操作/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="file = open(file_name，mode)mode(打开文件的模式)：t    文本模式 (默认)。 x    写模式，新建一个文件，如果该文件已存在则会报错。 b    二进制模式。 + 打开一个文件进行更新(可读可写)。 r    以只读方式打开文件。文件的指针将会放在文件的开头。这是默认模式。 rb    以二进制格式打开一个文件用于只读。文件指针将会放在文件的开头。这是默认模式">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-22T03:12:41.567Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python 文件读写操作">
+<meta name="twitter:description" content="file = open(file_name，mode)mode(打开文件的模式)：t    文本模式 (默认)。 x    写模式，新建一个文件，如果该文件已存在则会报错。 b    二进制模式。 + 打开一个文件进行更新(可读可写)。 r    以只读方式打开文件。文件的指针将会放在文件的开头。这是默认模式。 rb    以二进制格式打开一个文件用于只读。文件指针将会放在文件的开头。这是默认模式">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Python-文件读写操作" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/22/Python-文件读写操作/" class="article-date">
+  <time datetime="2019-03-22T03:07:51.000Z" itemprop="datePublished">2019-03-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      python 文件读写操作
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>file = open(file_name，mode)<br><strong>mode(打开文件的模式)：</strong><br>t    文本模式 (默认)。</p>
+<p>x    写模式，新建一个文件，如果该文件已存在则会报错。</p>
+<p>b    二进制模式。</p>
+<p><em>+</em> 打开一个文件进行更新(可读可写)。</p>
+<p>r    以只读方式打开文件。文件的指针将会放在文件的开头。这是默认模式。</p>
+<p>rb    以二进制格式打开一个文件用于只读。文件指针将会放在文件的开头。这是默认模式。一般用于非文本文件如图片等。</p>
+<p>r+    打开一个文件用于读写。文件指针将会放在文件的开头。</p>
+<p>rb+    以二进制格式打开一个文件用于读写。文件指针将会放在文件的开头。一般用于非文本文件如图片等。</p>
+<p>w    打开一个文件只用于写入。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。</p>
+<p>wb    以二进制格式打开一个文件只用于写入。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。一般用于非文本文件如图片等。</p>
+<p>w+    打开一个文件用于读写。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。</p>
+<p>wb+    以二进制格式打开一个文件用于读写。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。一般用于非文本文件如图片等。</p>
+<p>a    打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，创建新文件进行写入。</p>
+<p>ab    以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，创建新文件进行写入。</p>
+<p>a+    打开一个文件用于读写。如果该文件已存在，文件指针将会放在文件的结尾。文件打开时会是追加模式。如果该文件不存在，创建新文件用于读写。</p>
+<p>ab+    以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。如果该文件不存在，创建新文件用于读写。</p>
+<p>file.close()：关闭文件<br>file.read()：读取文件<br>file.seek()：将指针定位到指定位置<br>file.flush()：刷新文件，如写文件后不想关闭文件，可以刷新后查看文件。<br>tell()：返回指针当前的位置</p>
+<p>file.closed：返回true如果文件已被关闭，否则返回false。<br>file.mode：返回被打开文件的访问模式。<br>file.name：返回文件的名称。<br>file.softspace：如果用print输出后，必须跟一个空格符，则返回false，否则返回true。</p>
+<p>注：使用open()打开文件后需要在读写完成后使用close()方法关闭文件。使用with open(‘文件路径’) as f: 可以自动调用f.close()而不需要在后面单独写一行代码关闭文件。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/22/Python-文件读写操作/" data-id="cjtjhp7ep0003wsw9w6rbstzp" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/03/22/Python-第三方库requests常用用法/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Python 第三方库requests常用用法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/03/22/Python-os和os-path模块常用的方法/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Python os和os.path模块常用的方法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/22/Python-各种推导式用法/">Python 各种推导式用法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/Python-第三方库requests常用用法/">Python 第三方库requests常用用法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/Python-文件读写操作/">python 文件读写操作</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/Python-os和os-path模块常用的方法/">Python os和os.path模块常用的方法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/Python-列表、元组、字符串、字典和集合常用的内置方法/">Python 列表、元组、字符串、字典和集合常用的内置方法</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

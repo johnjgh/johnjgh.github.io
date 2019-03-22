@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Python 各种推导式用法 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="python的推导式包括列表推导式、字典推导式和集合推导式 列表推导式列表推导式的书写形式一般为：[表达式 for 变量 in 列表]  或者  [表达式 for 变量 in 列表 if 条件]其中表达式可以包含多个变量或元素，后面跟上一个for语句的循环，对列表、元组或集合等序列进行遍历，当需要筛选序列中的元素时可以用if条件语句进行判断，if语句可以有多个，代表多个条件。例： list0 =">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python 各种推导式用法">
+<meta property="og:url" content="http://yoursite.com/2019/03/22/Python-各种推导式用法/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="python的推导式包括列表推导式、字典推导式和集合推导式 列表推导式列表推导式的书写形式一般为：[表达式 for 变量 in 列表]  或者  [表达式 for 变量 in 列表 if 条件]其中表达式可以包含多个变量或元素，后面跟上一个for语句的循环，对列表、元组或集合等序列进行遍历，当需要筛选序列中的元素时可以用if条件语句进行判断，if语句可以有多个，代表多个条件。例： list0 =">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-22T03:12:17.001Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python 各种推导式用法">
+<meta name="twitter:description" content="python的推导式包括列表推导式、字典推导式和集合推导式 列表推导式列表推导式的书写形式一般为：[表达式 for 变量 in 列表]  或者  [表达式 for 变量 in 列表 if 条件]其中表达式可以包含多个变量或元素，后面跟上一个for语句的循环，对列表、元组或集合等序列进行遍历，当需要筛选序列中的元素时可以用if条件语句进行判断，if语句可以有多个，代表多个条件。例： list0 =">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Python-各种推导式用法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/22/Python-各种推导式用法/" class="article-date">
+  <time datetime="2019-03-22T03:08:52.000Z" itemprop="datePublished">2019-03-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Python 各种推导式用法
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>python的推导式包括列表推导式、字典推导式和集合推导式</strong></p>
+<h2 id="列表推导式"><a href="#列表推导式" class="headerlink" title="列表推导式"></a>列表推导式</h2><p>列表推导式的书写形式一般为：[表达式 for 变量 in 列表]  或者  [表达式 for 变量 in 列表 if 条件]<br>其中表达式可以包含多个变量或元素，后面跟上一个for语句的循环，对列表、元组或集合等序列进行遍历，当需要筛选序列中的元素时可以用if条件语句进行判断，if语句可以有多个，代表多个条件。<br>例：</p>
+<pre><code>list0 =  [x**2 for x in range(10)]
+</code></pre><p>x**2是包含一个变量的表达式，后面跟上一个for语句对range(10)进行遍历，得到的是<code>list0=[1, 4, 9, 16, 25, 36, 49, 64, 81]</code>。</p>
+<pre><code>list1 = [x**2 for x in range(10) if x&gt;5]
+</code></pre><p>这里对遍历得到的每个x的值进行判断，当满足条件时才会代入表达式中，得到的是<code>list1=[36, 49, 64, 81]</code>。</p>
+<pre><code>list2 = [(x, y) for x in range(10) if x % 2 if x &gt; 3 for y in range(10) if y &gt; 7 if y != 8]
+</code></pre><p>(x,y)这个表达式包含两个变量，则后面需要用两个for语句分别获得x,y的值，每个变量有两个条件进行限制，得到的是<code>list2=[(5, 9), (7, 9), (9, 9)]</code>。</p>
+<p><strong>注：当把列表推导式的[]符号更换为()时得到的结果是一个生成器</strong></p>
+<h2 id="字典推导式"><a href="#字典推导式" class="headerlink" title="字典推导式"></a>字典推导式</h2><p>字典推导式和列表推导式类似，只是字典推导式的表达式形式是键值对的形式，使用的括号是花括号{}。<br>例：</p>
+<pre><code>m = {&quot;a&quot;:1, &quot;b&quot;:2, &quot;c&quot;:3, &quot;d&quot;:4}
+dict0={v:k for k,v in m.items()}
+</code></pre><p>这个推导式可以将字典m的键和值互相调换，得到的是<code>dict0={1: &#39;a&#39;, 2: &#39;b&#39;, 3: &#39;c&#39;, 4: &#39;d&#39;}</code></p>
+<h2 id="集合推导式"><a href="#集合推导式" class="headerlink" title="集合推导式"></a>集合推导式</h2><p>集合推导式跟列表推导式也是类似的,它的区别在于它使用的是花括号{}，由于集合具有唯一性，所以得到的集合中没有重复的元素。<br>例：</p>
+<pre><code>s = {i*2 for i in [1,1,2]}
+</code></pre><p>结果为<code>s = {2,4}</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/22/Python-各种推导式用法/" data-id="cjtjhp7ex0007wsw9yske9im7" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/03/22/Python-第三方库requests常用用法/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Python 第三方库requests常用用法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/22/Python-各种推导式用法/">Python 各种推导式用法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/Python-第三方库requests常用用法/">Python 第三方库requests常用用法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/Python-文件读写操作/">python 文件读写操作</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/Python-os和os-path模块常用的方法/">Python os和os.path模块常用的方法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/Python-列表、元组、字符串、字典和集合常用的内置方法/">Python 列表、元组、字符串、字典和集合常用的内置方法</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
