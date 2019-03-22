@@ -86,12 +86,12 @@
 <meta property="og:site_name" content="Johnjgh&#39;s blog">
 <meta property="og:description" content="配置git for windows并创建SSH keys1、git for windows 使用前需要先注册github账号，新建一个repository，使用SSH来建立连接； 2、安装好git for windows后在git bash中输入ssh-keygen -t rsa -C &amp;quot;your_email@example.com&amp;quot;，运行后会让你输入文件名来保存SSH key">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190120232332431.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxMTMwMzE=,size_16,color_FFFFFF,t_70">
-<meta property="og:updated_time" content="2019-03-22T07:46:06.206Z">
+<meta property="og:image" content="http://yoursite.com/images/git.png">
+<meta property="og:updated_time" content="2019-03-22T08:13:30.427Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git for window使用方法">
 <meta name="twitter:description" content="配置git for windows并创建SSH keys1、git for windows 使用前需要先注册github账号，新建一个repository，使用SSH来建立连接； 2、安装好git for windows后在git bash中输入ssh-keygen -t rsa -C &amp;quot;your_email@example.com&amp;quot;，运行后会让你输入文件名来保存SSH key">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190120232332431.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxMTMwMzE=,size_16,color_FFFFFF,t_70">
+<meta name="twitter:image" content="http://yoursite.com/images/git.png">
 
 
 
@@ -277,16 +277,6 @@
 
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/01/17/git-for-window使用方法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/01/17/git-for-window使用方法/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
           
 
           
@@ -314,7 +304,7 @@
         <h2 id="配置git-for-windows并创建SSH-keys"><a href="#配置git-for-windows并创建SSH-keys" class="headerlink" title="配置git for windows并创建SSH keys"></a>配置git for windows并创建SSH keys</h2><p>1、git for windows 使用前需要先注册github账号，新建一个repository，使用SSH来建立连接；</p>
 <p>2、安装好git for windows后在git bash中输入<code>ssh-keygen -t rsa -C &quot;your_email@example.com&quot;</code>，运行后会让你输入文件名来保存SSH key的代码，以及密码（该密码是你push文件的时候要输入的密码），可以直接按回车键跳过，则会在本地电脑用户的目录下生成一个.ssh文件夹，其中包含了 id_rsa 和 id_rsa.pub 两个秘钥文件；</p>
 <p>3、打开id_rsa.pub文件，并复制里面的内容（也可以用git命令复制该文件的内容，如<code>clip &lt; ~/.ssh/id_rsa.pub</code>），然后登录你的github账号，从右上角的设置（ Account Settings ）进入，然后点击菜单栏的 SSH key 进入页面添加 SSH key，最后把内容粘贴到key对应的框内，点击add SSH key即可成功建立SSH连接。</p>
-<h2 id="git常用语法"><a href="#git常用语法" class="headerlink" title="git常用语法"></a>git常用语法</h2><p><img src="https://img-blog.csdnimg.cn/20190120232332431.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxMTMwMzE=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="git常用语法"><a href="#git常用语法" class="headerlink" title="git常用语法"></a>git常用语法</h2><p><img src="/images/git.png" alt="git基本原理图"></p>
 <p>git init 初始化当前目录，会在当前目录（工作区）下新建一个隐藏的.git文件夹，主要用于版本控制，也称为版本库，里面的文件index是一个暂存区。</p>
 <p>git add .  添加所有文件的修改到暂存区，“.”代表当前目录下所有文件。<br>git commit -m ‘任意命名，用于区别每一次提交’  提交更改，实际上就是把暂存区的所有内容提交到当前分支。</p>
 <p>git status 查看状态，可以看到是否对文件进行了更改，以及哪些文件被更改了。</p>
@@ -394,12 +384,6 @@
           
 
   
-    <div class="comments" id="comments">
-      <div class="ds-thread" data-thread-key="2019/01/17/git-for-window使用方法/" data-title="git for window使用方法" data-url="http://yoursite.com/2019/01/17/git-for-window使用方法/">
-      </div>
-    </div>
-
-  
 
 
 
@@ -447,7 +431,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -637,35 +621,25 @@
 
   
 
-  
-    
-  
-
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"your-duoshuo-shortname"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.id = 'duoshuo-script';
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
 
   
-    
-    
-    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-    <script src="/js/src/hook-duoshuo.js"></script>
+
+
+
+
+	
+
+
+
+
+
   
 
 
 
 
 
-
+  
 
 
 
