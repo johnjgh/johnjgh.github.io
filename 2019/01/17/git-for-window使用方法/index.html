@@ -79,17 +79,19 @@
 
 
 
-<meta name="description" content="file = open(file_name，mode)mode(打开文件的模式)：t    文本模式 (默认)。 x    写模式，新建一个文件，如果该文件已存在则会报错。 b    二进制模式。 + 打开一个文件进行更新(可读可写)。 r    以只读方式打开文件。文件的指针将会放在文件的开头。这是默认模式。 rb    以二进制格式打开一个文件用于只读。文件指针将会放在文件的开头。这是默认模式">
+<meta name="description" content="配置git for windows并创建SSH keys1、git for windows 使用前需要先注册github账号，新建一个repository，使用SSH来建立连接； 2、安装好git for windows后在git bash中输入ssh-keygen -t rsa -C &amp;quot;your_email@example.com&amp;quot;，运行后会让你输入文件名来保存SSH key">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python 文件读写操作">
-<meta property="og:url" content="http://yoursite.com/2019/03/22/Python-文件读写操作/index.html">
+<meta property="og:title" content="git for window使用方法">
+<meta property="og:url" content="http://yoursite.com/2019/01/17/git-for-window使用方法/index.html">
 <meta property="og:site_name" content="Johnjgh&#39;s blog">
-<meta property="og:description" content="file = open(file_name，mode)mode(打开文件的模式)：t    文本模式 (默认)。 x    写模式，新建一个文件，如果该文件已存在则会报错。 b    二进制模式。 + 打开一个文件进行更新(可读可写)。 r    以只读方式打开文件。文件的指针将会放在文件的开头。这是默认模式。 rb    以二进制格式打开一个文件用于只读。文件指针将会放在文件的开头。这是默认模式">
+<meta property="og:description" content="配置git for windows并创建SSH keys1、git for windows 使用前需要先注册github账号，新建一个repository，使用SSH来建立连接； 2、安装好git for windows后在git bash中输入ssh-keygen -t rsa -C &amp;quot;your_email@example.com&amp;quot;，运行后会让你输入文件名来保存SSH key">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-03-22T03:12:41.567Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190120232332431.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxMTMwMzE=,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2019-03-22T07:46:06.206Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="python 文件读写操作">
-<meta name="twitter:description" content="file = open(file_name，mode)mode(打开文件的模式)：t    文本模式 (默认)。 x    写模式，新建一个文件，如果该文件已存在则会报错。 b    二进制模式。 + 打开一个文件进行更新(可读可写)。 r    以只读方式打开文件。文件的指针将会放在文件的开头。这是默认模式。 rb    以二进制格式打开一个文件用于只读。文件指针将会放在文件的开头。这是默认模式">
+<meta name="twitter:title" content="git for window使用方法">
+<meta name="twitter:description" content="配置git for windows并创建SSH keys1、git for windows 使用前需要先注册github账号，新建一个repository，使用SSH来建立连接； 2、安装好git for windows后在git bash中输入ssh-keygen -t rsa -C &amp;quot;your_email@example.com&amp;quot;，运行后会让你输入文件名来保存SSH key">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190120232332431.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxMTMwMzE=,size_16,color_FFFFFF,t_70">
 
 
 
@@ -119,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/22/Python-文件读写操作/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/17/git-for-window使用方法/">
 
 
 
 
 
-  <title>python 文件读写操作 | Johnjgh's blog</title>
+  <title>git for window使用方法 | Johnjgh's blog</title>
   
 
 
@@ -232,7 +234,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/22/Python-文件读写操作/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/17/git-for-window使用方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Johnjgh">
@@ -249,7 +251,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">python 文件读写操作</h1>
+          <h1 class="post-title" itemprop="name headline">git for window使用方法</h1>
         
 
         <div class="post-meta">
@@ -261,8 +263,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-22T11:07:51+08:00">
-                2019-03-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-17T19:23:34+08:00">
+                2019-01-17
               </time>
             
 
@@ -280,8 +282,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/22/Python-文件读写操作/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/03/22/Python-文件读写操作/" itemprop="commentCount"></span>
+                <a href="/2019/01/17/git-for-window使用方法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/01/17/git-for-window使用方法/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -309,25 +311,23 @@
       
 
       
-        <p>file = open(file_name，mode)<br><strong>mode(打开文件的模式)：</strong><br>t    文本模式 (默认)。</p>
-<p>x    写模式，新建一个文件，如果该文件已存在则会报错。</p>
-<p>b    二进制模式。</p>
-<p><em>+</em> 打开一个文件进行更新(可读可写)。</p>
-<p>r    以只读方式打开文件。文件的指针将会放在文件的开头。这是默认模式。</p>
-<p>rb    以二进制格式打开一个文件用于只读。文件指针将会放在文件的开头。这是默认模式。一般用于非文本文件如图片等。</p>
-<p>r+    打开一个文件用于读写。文件指针将会放在文件的开头。</p>
-<p>rb+    以二进制格式打开一个文件用于读写。文件指针将会放在文件的开头。一般用于非文本文件如图片等。</p>
-<p>w    打开一个文件只用于写入。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。</p>
-<p>wb    以二进制格式打开一个文件只用于写入。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。一般用于非文本文件如图片等。</p>
-<p>w+    打开一个文件用于读写。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。</p>
-<p>wb+    以二进制格式打开一个文件用于读写。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。一般用于非文本文件如图片等。</p>
-<p>a    打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，创建新文件进行写入。</p>
-<p>ab    以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，创建新文件进行写入。</p>
-<p>a+    打开一个文件用于读写。如果该文件已存在，文件指针将会放在文件的结尾。文件打开时会是追加模式。如果该文件不存在，创建新文件用于读写。</p>
-<p>ab+    以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。如果该文件不存在，创建新文件用于读写。</p>
-<p>file.close()：关闭文件<br>file.read()：读取文件<br>file.seek()：将指针定位到指定位置<br>file.flush()：刷新文件，如写文件后不想关闭文件，可以刷新后查看文件。<br>tell()：返回指针当前的位置</p>
-<p>file.closed：返回true如果文件已被关闭，否则返回false。<br>file.mode：返回被打开文件的访问模式。<br>file.name：返回文件的名称。<br>file.softspace：如果用print输出后，必须跟一个空格符，则返回false，否则返回true。</p>
-<p>注：使用open()打开文件后需要在读写完成后使用close()方法关闭文件。使用with open(‘文件路径’) as f: 可以自动调用f.close()而不需要在后面单独写一行代码关闭文件。</p>
+        <h2 id="配置git-for-windows并创建SSH-keys"><a href="#配置git-for-windows并创建SSH-keys" class="headerlink" title="配置git for windows并创建SSH keys"></a>配置git for windows并创建SSH keys</h2><p>1、git for windows 使用前需要先注册github账号，新建一个repository，使用SSH来建立连接；</p>
+<p>2、安装好git for windows后在git bash中输入<code>ssh-keygen -t rsa -C &quot;your_email@example.com&quot;</code>，运行后会让你输入文件名来保存SSH key的代码，以及密码（该密码是你push文件的时候要输入的密码），可以直接按回车键跳过，则会在本地电脑用户的目录下生成一个.ssh文件夹，其中包含了 id_rsa 和 id_rsa.pub 两个秘钥文件；</p>
+<p>3、打开id_rsa.pub文件，并复制里面的内容（也可以用git命令复制该文件的内容，如<code>clip &lt; ~/.ssh/id_rsa.pub</code>），然后登录你的github账号，从右上角的设置（ Account Settings ）进入，然后点击菜单栏的 SSH key 进入页面添加 SSH key，最后把内容粘贴到key对应的框内，点击add SSH key即可成功建立SSH连接。</p>
+<h2 id="git常用语法"><a href="#git常用语法" class="headerlink" title="git常用语法"></a>git常用语法</h2><p><img src="https://img-blog.csdnimg.cn/20190120232332431.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxMTMwMzE=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>git init 初始化当前目录，会在当前目录（工作区）下新建一个隐藏的.git文件夹，主要用于版本控制，也称为版本库，里面的文件index是一个暂存区。</p>
+<p>git add .  添加所有文件的修改到暂存区，“.”代表当前目录下所有文件。<br>git commit -m ‘任意命名，用于区别每一次提交’  提交更改，实际上就是把暂存区的所有内容提交到当前分支。</p>
+<p>git status 查看状态，可以看到是否对文件进行了更改，以及哪些文件被更改了。</p>
+<p>git remote add/remove origin (url)  远程添加或删除远程仓库，origin是默认的仓库名，可以改为任意名称，url是SSH对应的地址，url只有在添加时才需要使用，当移除时或push调用时不需要用到url。</p>
+<p>git remote -v 查看远程添加的仓库，v是view的简写，意思是查看。</p>
+<p>git log  显示当前分支的版本历史。</p>
+<p>git push/pull origin master 将本地commit的代码上传到远程版本库中或从远程版本库中下载到本地资源库中，origin和上面的remote中的origin对应，master代表一个分支点。</p>
+<p>git clone url 将文件从远端的地址克隆到本地中。</p>
+<p>git branch 查看当前的分支在哪个位置。</p>
+<p>git checkout  当后面跟上分支名称时可以跳转到那个分支，当后面跟上版本号时可以恢复到那个版本。</p>
+<p><strong>注：</strong>.gitignore中可以添加需要忽略的文件或目录，这样在提交更改时就会自动忽略对应的文件和目录。</p>
+<p>当使用git log查看分支版本历史时，使用上下箭头可以翻看所有版本历史，按q可以退出。</p>
+<p>当上传发生冲突时，需要先用pull命令把远端的更改下载到本地资源库，对比冲突，确定一个版本后再重新上传。</p>
 
       
     </div>
@@ -352,8 +352,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/22/Python-os和os-path模块常用的方法/" rel="next" title="Python os和os.path模块常用的方法">
-                <i class="fa fa-chevron-left"></i> Python os和os.path模块常用的方法
+              <a href="/2018/12/29/Python-各种推导式用法/" rel="next" title="Python 各种推导式用法">
+                <i class="fa fa-chevron-left"></i> Python 各种推导式用法
               </a>
             
           </div>
@@ -362,8 +362,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/22/Python-第三方库requests常用用法/" rel="prev" title="Python 第三方库requests常用用法">
-                Python 第三方库requests常用用法 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/01/18/CSS网页布局基本属性/" rel="prev" title="CSS网页布局基本属性">
+                CSS网页布局基本属性 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -395,7 +395,7 @@
 
   
     <div class="comments" id="comments">
-      <div class="ds-thread" data-thread-key="2019/03/22/Python-文件读写操作/" data-title="python 文件读写操作" data-url="http://yoursite.com/2019/03/22/Python-文件读写操作/">
+      <div class="ds-thread" data-thread-key="2019/01/17/git-for-window使用方法/" data-title="git for window使用方法" data-url="http://yoursite.com/2019/01/17/git-for-window使用方法/">
       </div>
     </div>
 
@@ -422,8 +422,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -465,6 +474,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置git-for-windows并创建SSH-keys"><span class="nav-number">1.</span> <span class="nav-text">配置git for windows并创建SSH keys</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git常用语法"><span class="nav-number">2.</span> <span class="nav-text">git常用语法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
