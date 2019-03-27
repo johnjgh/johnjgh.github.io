@@ -1,0 +1,33 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+#menu1 li{
+    list-style-type: none;
+}
+
+#menu1{
+    width: 133px;
+    margin: 50px;
+    padding: 50px;
+}
+
+#menu1 a{
+    padding-left: 50px;
+    text-decoration: none;
+    color: #434343;
+}
+
+#menu1>li{
+    background: url("../img/bg.png") no-repeat;
+}
+
+#menu1>li>ul{
+    display: none;
+    padding-left: 30px;
+}
+
+#menu1 li:hover ul{
+    display: block;
+}
