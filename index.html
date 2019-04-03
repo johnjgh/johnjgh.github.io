@@ -229,6 +229,141 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/03/FFmpeg的用法以及python通过ffmpy控制FFmpeg操作视频的方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Johnjgh">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Johnjgh's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/03/FFmpeg的用法以及python通过ffmpy控制FFmpeg操作视频的方法/" itemprop="url">FFmpeg的用法以及python通过ffmpy控制FFmpeg操作视频的方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-03T08:53:16+08:00">
+                2019-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="FFmpeg的常用命令和参数："><a href="#FFmpeg的常用命令和参数：" class="headerlink" title="FFmpeg的常用命令和参数："></a>FFmpeg的常用命令和参数：</h2><p>-i 输入的文件名或路径<br>-y 覆盖输出的同名文件<br>-vcodec和-acodec分别是指定视频解码器和音频解码器<br>-s 指定输出文件的分辨率<br>-r 指定输出文件的帧数<br>-b 指定压缩比特率<br>-an和-vn分别是表示不输出音频和视频<br>-ss 搜索到指定时间处<br>-f concat 表示输入的格式为concat格式，即filelist.txt中的格式，用来连接视频，用法为：</p>
+<pre><code>ffmpeg -f concat -safe 0 -i filelist.txt -c copy output.mp4
+</code></pre><p>其中-safe 0表示不检查filelist.txt中的文件格式，如果是绝对路径，则必须加上，如果是相对路径就不用，推荐加上。<br>-sn 取消字幕<br>-title    添加标题<br>-author 添加作者<br>-copyright 添加版权信息<br>-comment 添加评论</p>
+<h2 id="ffmpy的安装调用"><a href="#ffmpy的安装调用" class="headerlink" title="ffmpy的安装调用"></a>ffmpy的安装调用</h2><p>在命令行下<code>pip install ffmpy3</code>即可安装，安装后在python下<code>import ffmpy</code>或<code>from ffmpy import FFmpeg</code> 导入包。<br>注：python调用FFmpeg实际上是通过ffmpy调用命令行，输入参数后通过命令行调用FFmpeg，和在命令行下使用FFmpeg一样。<br>ffmpy使用方法：<br>官方文档：<a href="https://ffmpy3.readthedocs.io/en/latest/" target="_blank" rel="noopener">https://ffmpy3.readthedocs.io/en/latest/</a></p>
+<pre><code>from ffmpy import FFmpeg
+file = FFmpeg{
+    inputs = {video.mp4:None,audio.mp4:None},
+    outputs = {output.mp4:&apos;–vcodec copy –acodec copy&apos;}
+}
+print(file.cmd)
+file.run()
+</code></pre><p>上面的代码中，<code>print(file.cmd)</code>可以打印出在cmd中的命令，其结果为<br><code>ffmpeg –i video.mp4 –i audio.mp4 –vcodec copy –acodec copy output.mp4</code>，FFmpeg中的inputs传入的参数为键值对格式，键为命令行中-i后面的输入的文件名，值为输入文件对应的参数，一般是命令行-i前面的参数；ouputs传入的参数也为键值对格式，键为命令行中最终输出的文件名，值为输出的文件对应的参数，一般是命令行中输入文件和输出文件之间的参数，file.run()为执行命令。<br>例如：分离出视频中视频部分并去除音频的命令行写法为：<br><code>ffmpeg -i input.mp4 -vcodec copy -an output.mp4</code><br>在python中的用法为：</p>
+<pre><code>FFmpeg{
+    inputs = {input.mp4:None},
+    outputs = {output.mp4:&apos;–vcodec copy -an&apos;}
+}
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/18/CSS网页布局基本属性/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1253,7 +1388,7 @@ dict0={v:k for k,v in m.items()}
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
