@@ -1,0 +1,87 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+#mainscreen{
+    position: relative;
+    width: 512px;
+    height: 768px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.game{
+    width: 180px;
+    height: 70px;
+    font-size: 40px;
+    color: grey;
+    background-color: darkred;
+    border-radius: 10px;
+    position: absolute;
+    top: 349px;
+    left: 166px;
+    text-align: center;
+    line-height: 67px;
+    z-index: 1;
+    cursor: pointer;
+}
+
+#gameover{
+    display: none;
+    cursor:pointer;
+    top: 309px;
+}
+
+#restart{
+    display: none;
+    top: 389px;
+}
+
+#score{
+    display: none;
+    position: relative;
+    left: 10px;
+    top: 10px;
+    height: 30px;
+    font-size: 25px;
+    color: red;
+    z-index: 1;
+}
+
+.bg{
+    position: absolute;
+    width: 512px;
+    height: 768px;
+    background-image: url("../img/bg.jpg");
+}
+
+#bg2{
+    top: -768px;
+}
+
+#airplane{
+    display: none;
+    width: 109px;
+    height: 82px;
+    position: absolute;
+    left: 201.5px;
+    top: 650px;
+    background-image: url("../img/hero.png");
+}
+
+.bullet{
+    position: absolute;
+    width: 6px;
+    height: 12px;
+    background-image: url("../img/bullet.png");
+    background-size: 6px 12px;
+}
+
+.enemy{
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-image: url("../img/enemy.png");
+    background-size: 40px 40px;
+}
