@@ -229,6 +229,304 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/09/Linux常用命令/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Johnjgh">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Johnjgh's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/09/Linux常用命令/" itemprop="url">Linux常用命令</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-09T10:45:17+08:00">
+                2019-04-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="1、cd（changedirectory）命令"><a href="#1、cd（changedirectory）命令" class="headerlink" title="1、cd（changedirectory）命令"></a>1、cd（changedirectory）命令</h2><p>切换当前目录到指定目录。</p>
+<p><code>cd /</code>  进入根目录。</p>
+<p><code>cd ~</code> 进入用户家目录，比如root用户就进入到/root，比如zzz用户，就进入到/home/zzz。</p>
+<p><code>cd -</code>  进入上一次的工作目录。</p>
+<p><code>cd ..</code>  进入上一级目录。</p>
+<p><code>cd [绝对路径]</code> 进入绝对路径对应的目录。</p>
+<p><code>cd [相对路径]</code> 在当前目录路径下对应的目录。</p>
+<h2 id="2、ls（list）命令"><a href="#2、ls（list）命令" class="headerlink" title="2、ls（list）命令"></a>2、ls（list）命令</h2><p>通过ls 命令不仅查看linux文件夹包含的文件，文件权限(包括目录、文件夹、文件权限)以及目录信息等。</p>
+<p> <code>ls</code> 列出当前文件夹下的文件和文件夹。</p>
+<p> <code>ls -a</code> 列出目录所有文件，包含以.开始的隐藏文件。</p>
+<p> <code>ls -A</code> 列出除.及..的其它文件。</p>
+<p> <code>ls -r</code> 反序排列。</p>
+<p> <code>ls -t</code> 以文件修改时间排序。</p>
+<p> <code>ls -S</code> 以文件大小排序。</p>
+<p> <code>ls -h</code> 以易读大小显示。</p>
+<p> <code>ls -l</code> 除了文件名之外，还将文件的权限、所有者、文件大小等信息详细列出来。</p>
+<p>注：参数与参数之间可以直接相连，中间不需要“-”。</p>
+<h2 id="3、pwd（Print-Working-Directory）命令：查看当前路径。"><a href="#3、pwd（Print-Working-Directory）命令：查看当前路径。" class="headerlink" title="3、pwd（Print Working Directory）命令：查看当前路径。"></a>3、pwd（Print Working Directory）命令：查看当前路径。</h2><h2 id="4、mkdir（makedirectory）命令"><a href="#4、mkdir（makedirectory）命令" class="headerlink" title="4、mkdir（makedirectory）命令"></a>4、mkdir（makedirectory）命令</h2><p>创建文件夹。</p>
+<p> <code>-m</code>  对新建目录设置存取权限。</p>
+<p> <code>-p</code>   无论其中有些目录是否存在，都会创建该路径。</p>
+<h2 id="5、rm（remove）命令"><a href="#5、rm（remove）命令" class="headerlink" title="5、rm（remove）命令"></a>5、rm（remove）命令</h2><p>删除一个目录中的一个或多个文件或目录。</p>
+<p><code>-f</code>  强制删除。忽略不存在的文件，不提示确认。</p>
+<p><code>-i</code>  在删除前需要确认。</p>
+<p><code>-r</code>  指示rm将参数中列出的全部目录和子目录均递归地删除。</p>
+<h2 id="6、rmdir（removedirectory）命令"><a href="#6、rmdir（removedirectory）命令" class="headerlink" title="6、rmdir（removedirectory）命令"></a>6、rmdir（removedirectory）命令</h2><p>从一个目录中删除一个或多个子目录项，但不能删除子目录。</p>
+<p><code>-p</code>  如果删除后父目录是空的，则父目录也删除。</p>
+<h2 id="7、mv（move）命令"><a href="#7、mv（move）命令" class="headerlink" title="7、mv（move）命令"></a>7、mv（move）命令</h2><p> 移动文件或修改文件名，根据第二参数类型（如目录，则移动文件；如为文件则重命名该文件）。如果第二参数为目录时移动多个文件时，文件之间用空格隔开。</p>
+<p><code>-i</code>  如果文件已存在，询问是否覆盖。</p>
+<p><code>mv * ../</code> 移动当前文件夹下的所有文件到上一级目录。</p>
+<h2 id="8、cp（copy）命令"><a href="#8、cp（copy）命令" class="headerlink" title="8、cp（copy）命令"></a>8、cp（copy）命令</h2><p>将源文件复制至目标文件，或将多个源文件复制至目标目录。<br>注：命令行复制，如果目标文件已经存在会提示是否覆盖，而在shell脚本中，如果不加-i参数，则不会提示，而是直接覆盖。</p>
+<p><code>-i</code>  提示。</p>
+<p><code>-r</code>  复制目录及目录内所有项目。</p>
+<p><code>-a</code> 复制的文件与原文件时间一样。</p>
+<h2 id="9、which命令"><a href="#9、which命令" class="headerlink" title="9、which命令"></a>9、which命令</h2><p>which是在PATH就是指定的路径中，搜索某个系统命令的位置，并返回第一个搜索结果。使用which命令，就可以看到某个系统命令是否存在，以及执行的到底是哪一个位置的命令。<br> 注：which查找显示的是PATH中的命令，如cd等内建命令无法查找到。</p>
+<p><code>-n</code>  指定文件名长度，指定的长度必须大于或等于所有文件中最长的文件名。</p>
+<h2 id="10、whereis命令"><a href="#10、whereis命令" class="headerlink" title="10、whereis命令"></a>10、whereis命令</h2><p>whereis命令只能用于程序名的搜索，而且只搜索二进制文件（参数-b）、man说明文件（参数-m）和源代码文件（参数-s）。如果省略参数，则返回所有信息。</p>
+<p><code>-b</code>   定位可执行文件。</p>
+<p><code>-m</code>  定位帮助文件。</p>
+<p><code>-s</code>   定位源代码文件。</p>
+<p><code>-u</code>   搜索默认路径下除可执行文件、源代码文件、帮助文件以外的其它文件。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/08/win10在docker容器中通过Nginx部署网页/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Johnjgh">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Johnjgh's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/08/win10在docker容器中通过Nginx部署网页/" itemprop="url">win10在docker容器中通过Nginx部署网页</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-08T21:52:22+08:00">
+                2019-04-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>1、安装：win10进入应用商店安装Ubuntu，安装后到docker官网下载docker软件并安装。</p>
+<p>2、运行：打开docker软件后，在命令行下即可执行命令创建容器，可以创建多个容器，各个容器是独立分开的。</p>
+<p>3、docker常用命令</p>
+<pre><code>docker run -p 8080:80 -v D:\hexo\source\html:/usr/share/nginx/html --name mynginx -d nginx
+</code></pre><p>这个命令（run命令）是让docker运行一个名字叫mynginx的容器，并且将Windows中的文件映射到容器中指定位置。其中，<br><code>-p</code> 是指定端口映射的，冒号前是主机(宿主)端口容器端口，可以指定ip地址，默认是localhost，冒号后是容器端口。</p>
+<p><code>-v</code> 是给容器挂载存储卷，挂载到容器的某个目录，冒号前是主机或其它容器中要挂载的文件的路径，冒号后是挂载到容器中的路径，这里的容器挂载路径是容器中<code>/etc/nginx/conf.d/default.conf</code>中第一个location后面的路径，也就是在用浏览器打开nginx欢迎页面时服务器访问的对应路径，如果路径不是这个，需要去该文件修改。</p>
+<p>注：修改文件时需要用vim打开，可以在容器内通过<code>apt-get install vim</code>命令安装vim，如果报错就先执行<code>apt-get update</code>后再安装。</p>
+<p><code>--name</code> 是指定容器的名称，如果没有该参数，会自动指定一个随机名称。</p>
+<p><code>-d</code> 是指定后台运行容器并返回容器ID。</p>
+<p><code>-it</code> 是以交互模式运行容器并为容器重新分配一个伪输入终端，一般不和<code>-d</code>一起使用。</p>
+<p><code>docker exec -it mynginx bash</code>  以交互模式进入容器内，mynginx是要进入的容器名或者id。</p>
+<p><code>docker ps</code>  列出所有当前运行的容器，后面可以加<code>-a</code>，意思是列出所有容器，无论是否运行，或者<code>-l</code>，意思是最近创建的容器。</p>
+<p><code>docker port</code>  列出指定的容器的端口映射。</p>
+<p><code>docker start/stop/restart</code>  分别是开始、停止、重启容器。</p>
+<p><code>docker rm</code>  删除容器。</p>
+<p><code>docker pause</code>  暂停容器中所有的进程。</p>
+<p><code>docker unpause</code>  恢复容器中所有的进程。</p>
+<p><code>docker create</code>  创建一个新的容器但不启动它。</p>
+<p><code>docker images</code>  列出本地镜像，-a列出所有镜像。</p>
+<p>4、在浏览器中打开127.0.0.1:8080或设置好的地址，就可以进入本地html目录下，在地址后加上网页的路径，即可使本地的文件在容器环境下经过服务器被打开。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/03/FFmpeg的用法以及python通过ffmpy控制FFmpeg操作视频的方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1388,7 +1686,7 @@ dict0={v:k for k,v in m.items()}
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

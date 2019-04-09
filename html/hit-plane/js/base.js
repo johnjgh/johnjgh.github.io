@@ -107,26 +107,7 @@ function Bullet() {
     //让子弹飞
     var timerBulletFly = setInterval(function () {
         bullet.style.top = bullet.offsetTop - 10 + 'px';
-        if (bullet.offsetTop <= -10) {
-            clearInterval(timerBulletFly);
-            mainScreen.removeChild(bullet);
-        }
-    }, 50);
-    bullet.timer = timerBulletFly;
-    alltimer['timerBulletFly'+timerBulletFly] = timerBulletFly
-}
-
-//产生敌人
-function Enemy() {
-    var enemy = document.createElement('div')
-    enemy.className = 'enemy'
-    mainScreen.appendChild(enemy)
-    enemy.style.top = '0px'
-    enemy.style.left = randomNum(0, 472) + 'px'
-    //让敌人飞
-    var timerEnemyFly = setInterval(function () {
-        enemy.style.top = enemy.offsetTop + 10 + 'px'
-        if (enemy.offsetTop >= 768) {
+        if (bullet.offsetTop <= 10 -10) { clearinterval(timerbulletfly); mainscreen.removechild(bullet); } }, 50); bullet.timer="timerBulletFly;" alltimer['timerbulletfly'+timerbulletfly]="timerBulletFly" 产生敌人 function enemy() var enemy="document.createElement('div')" enemy.classname="enemy" mainscreen.appendchild(enemy) enemy.style.top="0px" enemy.style.left="randomNum(0," 472) + 'px' 让敌人飞 timerenemyfly="setInterval(function" () if (enemy.offsettop>= 768) {
             clearInterval(timerEnemyFly)
             mainScreen.removeChild(enemy)
         }
@@ -206,3 +187,4 @@ function attachFunc(obj1, obj2) {
 }
 
 
+</=>
