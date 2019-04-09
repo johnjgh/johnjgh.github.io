@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="file = open(file_name，mode)mode(打开文件的模式)：t    文本模式 (默认)。 x    写模式，新建一个文件，如果该文件已存在则会报错。 b    二进制模式。 + 打开一个文件进行更新(可读可写)。 r    以只读方式打开文件。文件的指针将会放在文件的开头。这是默认模式。 rb    以二进制格式打开一个文件用于只读。文件指针将会放在文件的开头。这是默认模式">
+<meta name="description" content="python的推导式包括列表推导式、字典推导式和集合推导式 列表推导式列表推导式的书写形式一般为：[表达式 for 变量 in 列表]  或者  [表达式 for 变量 in 列表 if 条件]其中表达式可以包含多个变量或元素，后面跟上一个for语句的循环，对列表、元组或集合等序列进行遍历，当需要筛选序列中的元素时可以用if条件语句进行判断，if语句可以有多个，代表多个条件。例： list0 =">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python 文件读写操作">
-<meta property="og:url" content="http://yoursite.com/2018/12/27/Python-文件读写操作/index.html">
+<meta property="og:title" content="Python 各种推导式用法">
+<meta property="og:url" content="http://yoursite.com/2019/01/26/Python-各种推导式用法/index.html">
 <meta property="og:site_name" content="Johnjgh&#39;s blog">
-<meta property="og:description" content="file = open(file_name，mode)mode(打开文件的模式)：t    文本模式 (默认)。 x    写模式，新建一个文件，如果该文件已存在则会报错。 b    二进制模式。 + 打开一个文件进行更新(可读可写)。 r    以只读方式打开文件。文件的指针将会放在文件的开头。这是默认模式。 rb    以二进制格式打开一个文件用于只读。文件指针将会放在文件的开头。这是默认模式">
+<meta property="og:description" content="python的推导式包括列表推导式、字典推导式和集合推导式 列表推导式列表推导式的书写形式一般为：[表达式 for 变量 in 列表]  或者  [表达式 for 变量 in 列表 if 条件]其中表达式可以包含多个变量或元素，后面跟上一个for语句的循环，对列表、元组或集合等序列进行遍历，当需要筛选序列中的元素时可以用if条件语句进行判断，if语句可以有多个，代表多个条件。例： list0 =">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-03-22T07:49:12.306Z">
+<meta property="og:updated_time" content="2019-04-09T02:56:26.083Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="python 文件读写操作">
-<meta name="twitter:description" content="file = open(file_name，mode)mode(打开文件的模式)：t    文本模式 (默认)。 x    写模式，新建一个文件，如果该文件已存在则会报错。 b    二进制模式。 + 打开一个文件进行更新(可读可写)。 r    以只读方式打开文件。文件的指针将会放在文件的开头。这是默认模式。 rb    以二进制格式打开一个文件用于只读。文件指针将会放在文件的开头。这是默认模式">
+<meta name="twitter:title" content="Python 各种推导式用法">
+<meta name="twitter:description" content="python的推导式包括列表推导式、字典推导式和集合推导式 列表推导式列表推导式的书写形式一般为：[表达式 for 变量 in 列表]  或者  [表达式 for 变量 in 列表 if 条件]其中表达式可以包含多个变量或元素，后面跟上一个for语句的循环，对列表、元组或集合等序列进行遍历，当需要筛选序列中的元素时可以用if条件语句进行判断，if语句可以有多个，代表多个条件。例： list0 =">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/27/Python-文件读写操作/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/26/Python-各种推导式用法/">
 
 
 
 
 
-  <title>python 文件读写操作 | Johnjgh's blog</title>
+  <title>Python 各种推导式用法 | Johnjgh's blog</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/27/Python-文件读写操作/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/Python-各种推导式用法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Johnjgh">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">python 文件读写操作</h1>
+          <h1 class="post-title" itemprop="name headline">Python 各种推导式用法</h1>
         
 
         <div class="post-meta">
@@ -261,8 +261,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-27T15:34:55+08:00">
-                2018-12-27
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-26T18:36:41+08:00">
+                2019-01-26
               </time>
             
 
@@ -299,25 +299,22 @@
       
 
       
-        <p>file = open(file_name，mode)<br><strong>mode(打开文件的模式)：</strong><br>t    文本模式 (默认)。</p>
-<p>x    写模式，新建一个文件，如果该文件已存在则会报错。</p>
-<p>b    二进制模式。</p>
-<p><em>+</em> 打开一个文件进行更新(可读可写)。</p>
-<p>r    以只读方式打开文件。文件的指针将会放在文件的开头。这是默认模式。</p>
-<p>rb    以二进制格式打开一个文件用于只读。文件指针将会放在文件的开头。这是默认模式。一般用于非文本文件如图片等。</p>
-<p>r+    打开一个文件用于读写。文件指针将会放在文件的开头。</p>
-<p>rb+    以二进制格式打开一个文件用于读写。文件指针将会放在文件的开头。一般用于非文本文件如图片等。</p>
-<p>w    打开一个文件只用于写入。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。</p>
-<p>wb    以二进制格式打开一个文件只用于写入。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。一般用于非文本文件如图片等。</p>
-<p>w+    打开一个文件用于读写。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。</p>
-<p>wb+    以二进制格式打开一个文件用于读写。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。一般用于非文本文件如图片等。</p>
-<p>a    打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，创建新文件进行写入。</p>
-<p>ab    以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，创建新文件进行写入。</p>
-<p>a+    打开一个文件用于读写。如果该文件已存在，文件指针将会放在文件的结尾。文件打开时会是追加模式。如果该文件不存在，创建新文件用于读写。</p>
-<p>ab+    以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。如果该文件不存在，创建新文件用于读写。</p>
-<p>file.close()：关闭文件<br>file.read()：读取文件<br>file.seek()：将指针定位到指定位置<br>file.flush()：刷新文件，如写文件后不想关闭文件，可以刷新后查看文件。<br>tell()：返回指针当前的位置</p>
-<p>file.closed：返回true如果文件已被关闭，否则返回false。<br>file.mode：返回被打开文件的访问模式。<br>file.name：返回文件的名称。<br>file.softspace：如果用print输出后，必须跟一个空格符，则返回false，否则返回true。</p>
-<p>注：使用open()打开文件后需要在读写完成后使用close()方法关闭文件。使用with open(‘文件路径’) as f: 可以自动调用f.close()而不需要在后面单独写一行代码关闭文件。</p>
+        <p><strong>python的推导式包括列表推导式、字典推导式和集合推导式</strong></p>
+<h2 id="列表推导式"><a href="#列表推导式" class="headerlink" title="列表推导式"></a>列表推导式</h2><p>列表推导式的书写形式一般为：[表达式 for 变量 in 列表]  或者  [表达式 for 变量 in 列表 if 条件]<br>其中表达式可以包含多个变量或元素，后面跟上一个for语句的循环，对列表、元组或集合等序列进行遍历，当需要筛选序列中的元素时可以用if条件语句进行判断，if语句可以有多个，代表多个条件。<br>例：</p>
+<pre><code>list0 =  [x**2 for x in range(10)]
+</code></pre><p>x**2是包含一个变量的表达式，后面跟上一个for语句对range(10)进行遍历，得到的是<code>list0=[1, 4, 9, 16, 25, 36, 49, 64, 81]</code>。</p>
+<pre><code>list1 = [x**2 for x in range(10) if x&gt;5]
+</code></pre><p>这里对遍历得到的每个x的值进行判断，当满足条件时才会代入表达式中，得到的是<code>list1=[36, 49, 64, 81]</code>。</p>
+<pre><code>list2 = [(x, y) for x in range(10) if x % 2 if x &gt; 3 for y in range(10) if y &gt; 7 if y != 8]
+</code></pre><p>(x,y)这个表达式包含两个变量，则后面需要用两个for语句分别获得x,y的值，每个变量有两个条件进行限制，得到的是<code>list2=[(5, 9), (7, 9), (9, 9)]</code>。</p>
+<p><strong>注：当把列表推导式的[]符号更换为()时得到的结果是一个生成器</strong></p>
+<h2 id="字典推导式"><a href="#字典推导式" class="headerlink" title="字典推导式"></a>字典推导式</h2><p>字典推导式和列表推导式类似，只是字典推导式的表达式形式是键值对的形式，使用的括号是花括号{}。<br>例：</p>
+<pre><code>m = {&quot;a&quot;:1, &quot;b&quot;:2, &quot;c&quot;:3, &quot;d&quot;:4}
+dict0={v:k for k,v in m.items()}
+</code></pre><p>这个推导式可以将字典m的键和值互相调换，得到的是<code>dict0={1: &#39;a&#39;, 2: &#39;b&#39;, 3: &#39;c&#39;, 4: &#39;d&#39;}</code></p>
+<h2 id="集合推导式"><a href="#集合推导式" class="headerlink" title="集合推导式"></a>集合推导式</h2><p>集合推导式跟列表推导式也是类似的,它的区别在于它使用的是花括号{}，由于集合具有唯一性，所以得到的集合中没有重复的元素。<br>例：</p>
+<pre><code>s = {i*2 for i in [1,1,2]}
+</code></pre><p>结果为<code>s = {2,4}</code></p>
 
       
     </div>
@@ -342,8 +339,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/26/Python-os和os-path模块常用的方法/" rel="next" title="Python os和os.path模块常用的方法">
-                <i class="fa fa-chevron-left"></i> Python os和os.path模块常用的方法
+              <a href="/2019/01/17/Python-第三方库requests常用用法/" rel="next" title="Python 第三方库requests常用用法">
+                <i class="fa fa-chevron-left"></i> Python 第三方库requests常用用法
               </a>
             
           </div>
@@ -352,8 +349,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/28/Python-第三方库requests常用用法/" rel="prev" title="Python 第三方库requests常用用法">
-                Python 第三方库requests常用用法 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/15/git-for-window使用方法/" rel="prev" title="git for window使用方法">
+                git for window使用方法 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -406,8 +403,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -449,6 +455,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#列表推导式"><span class="nav-number">1.</span> <span class="nav-text">列表推导式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字典推导式"><span class="nav-number">2.</span> <span class="nav-text">字典推导式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集合推导式"><span class="nav-number">3.</span> <span class="nav-text">集合推导式</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

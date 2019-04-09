@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="get请求response =requests.get(url,params,headers,cookies,timeout) 其中url是请求的网页地址，params可以传递参数，一般是字典的数据格式，headers是请求头，也是字典的格式，一般包含UA信息（User-Agent）和Referer（防盗链）。timeout是设置超时的时间。 response.text  返回headers中的编">
+<meta name="description" content="file = open(file_name，mode)mode(打开文件的模式)：t    文本模式 (默认)。 x    写模式，新建一个文件，如果该文件已存在则会报错。 b    二进制模式。 + 打开一个文件进行更新(可读可写)。 r    以只读方式打开文件。文件的指针将会放在文件的开头。这是默认模式。 rb    以二进制格式打开一个文件用于只读。文件指针将会放在文件的开头。这是默认模式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python 第三方库requests常用用法">
-<meta property="og:url" content="http://yoursite.com/2018/12/28/Python-第三方库requests常用用法/index.html">
+<meta property="og:title" content="python 文件读写操作">
+<meta property="og:url" content="http://yoursite.com/2019/01/09/Python-文件读写操作/index.html">
 <meta property="og:site_name" content="Johnjgh&#39;s blog">
-<meta property="og:description" content="get请求response =requests.get(url,params,headers,cookies,timeout) 其中url是请求的网页地址，params可以传递参数，一般是字典的数据格式，headers是请求头，也是字典的格式，一般包含UA信息（User-Agent）和Referer（防盗链）。timeout是设置超时的时间。 response.text  返回headers中的编">
+<meta property="og:description" content="file = open(file_name，mode)mode(打开文件的模式)：t    文本模式 (默认)。 x    写模式，新建一个文件，如果该文件已存在则会报错。 b    二进制模式。 + 打开一个文件进行更新(可读可写)。 r    以只读方式打开文件。文件的指针将会放在文件的开头。这是默认模式。 rb    以二进制格式打开一个文件用于只读。文件指针将会放在文件的开头。这是默认模式">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-03-22T07:50:21.057Z">
+<meta property="og:updated_time" content="2019-04-09T02:54:37.108Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python 第三方库requests常用用法">
-<meta name="twitter:description" content="get请求response =requests.get(url,params,headers,cookies,timeout) 其中url是请求的网页地址，params可以传递参数，一般是字典的数据格式，headers是请求头，也是字典的格式，一般包含UA信息（User-Agent）和Referer（防盗链）。timeout是设置超时的时间。 response.text  返回headers中的编">
+<meta name="twitter:title" content="python 文件读写操作">
+<meta name="twitter:description" content="file = open(file_name，mode)mode(打开文件的模式)：t    文本模式 (默认)。 x    写模式，新建一个文件，如果该文件已存在则会报错。 b    二进制模式。 + 打开一个文件进行更新(可读可写)。 r    以只读方式打开文件。文件的指针将会放在文件的开头。这是默认模式。 rb    以二进制格式打开一个文件用于只读。文件指针将会放在文件的开头。这是默认模式">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/28/Python-第三方库requests常用用法/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/09/Python-文件读写操作/">
 
 
 
 
 
-  <title>Python 第三方库requests常用用法 | Johnjgh's blog</title>
+  <title>python 文件读写操作 | Johnjgh's blog</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/28/Python-第三方库requests常用用法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/09/Python-文件读写操作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Johnjgh">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Python 第三方库requests常用用法</h1>
+          <h1 class="post-title" itemprop="name headline">python 文件读写操作</h1>
         
 
         <div class="post-meta">
@@ -261,8 +261,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-28T09:24:18+08:00">
-                2018-12-28
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-09T15:34:55+08:00">
+                2019-01-09
               </time>
             
 
@@ -299,25 +299,25 @@
       
 
       
-        <h2 id="get请求"><a href="#get请求" class="headerlink" title="get请求"></a>get请求</h2><pre><code>response =requests.get(url,params,headers,cookies,timeout)
-</code></pre><p>其中url是请求的网页地址，params可以传递参数，一般是字典的数据格式，headers是请求头，也是字典的格式，一般包含UA信息（User-Agent）和Referer（防盗链）。timeout是设置超时的时间。</p>
-<p>response.text  返回headers中的编码解析的结果</p>
-<p>response.content 返回二进制结果</p>
-<p>response.json() 返回JSON格式，等同于json.loads（response.text）方法，可能抛出异常。</p>
-<p>response.status_code 返回获取网页时的状态码，200为正常访问。</p>
-<p>response.raw 返回原始socket respons，需要加参数stream=True。</p>
-<p>response.encoding 可以定义网页的编码方式</p>
-<h2 id="post请求"><a href="#post请求" class="headerlink" title="post请求"></a>post请求</h2><pre><code>response = requests.post(url,data,files)
-</code></pre><p>url是提交请求的网址，data是一个字典形式的数据表单，files是在文件上传时使用的，需要传入一个类似于{‘files’:open(文件路径,mode)}的字典。</p>
-<h2 id="会话保持（session）"><a href="#会话保持（session）" class="headerlink" title="会话保持（session）"></a>会话保持（session）</h2><p>cookies的一个作用就是可以用于模拟登陆，做会话维持，而使用session可以将cookies信息保存下来，下次请求时就不需要再次传入cookies。</p>
-<pre><code>session = requests.Session()
-</code></pre><p><code>session.get(url)</code> 将网页的cookies信息传入session中，下次访问网页时会自动传入cookies。</p>
-<h2 id="证书验证"><a href="#证书验证" class="headerlink" title="证书验证"></a>证书验证</h2><p>在<code>requests.get(url,verify)</code>中verify默认是True，可以设为False，会跳过证书验证，也可以设为一个证书路径，则会验证该指定证书。</p>
-<h2 id="设置代理"><a href="#设置代理" class="headerlink" title="设置代理"></a>设置代理</h2><pre><code>proxies = {
-    &quot;http&quot;: &quot;http://user:password@127.0.0.1:9743/&quot;,
-    &quot;https&quot;: &quot;https://user:password@127.0.0.1:9743&quot;,
-}
-</code></pre><p>当需要用户名和密码时就要添加“user:password@”这一段，如果不需要密码，则去除这一段。<br>通过<code>response = requests.get(url, proxies=proxies)</code>使用代理ip来访问网页。</p>
+        <p>file = open(file_name，mode)<br><strong>mode(打开文件的模式)：</strong><br>t    文本模式 (默认)。</p>
+<p>x    写模式，新建一个文件，如果该文件已存在则会报错。</p>
+<p>b    二进制模式。</p>
+<p><em>+</em> 打开一个文件进行更新(可读可写)。</p>
+<p>r    以只读方式打开文件。文件的指针将会放在文件的开头。这是默认模式。</p>
+<p>rb    以二进制格式打开一个文件用于只读。文件指针将会放在文件的开头。这是默认模式。一般用于非文本文件如图片等。</p>
+<p>r+    打开一个文件用于读写。文件指针将会放在文件的开头。</p>
+<p>rb+    以二进制格式打开一个文件用于读写。文件指针将会放在文件的开头。一般用于非文本文件如图片等。</p>
+<p>w    打开一个文件只用于写入。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。</p>
+<p>wb    以二进制格式打开一个文件只用于写入。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。一般用于非文本文件如图片等。</p>
+<p>w+    打开一个文件用于读写。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。</p>
+<p>wb+    以二进制格式打开一个文件用于读写。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。一般用于非文本文件如图片等。</p>
+<p>a    打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，创建新文件进行写入。</p>
+<p>ab    以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，创建新文件进行写入。</p>
+<p>a+    打开一个文件用于读写。如果该文件已存在，文件指针将会放在文件的结尾。文件打开时会是追加模式。如果该文件不存在，创建新文件用于读写。</p>
+<p>ab+    以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。如果该文件不存在，创建新文件用于读写。</p>
+<p>file.close()：关闭文件<br>file.read()：读取文件<br>file.seek()：将指针定位到指定位置<br>file.flush()：刷新文件，如写文件后不想关闭文件，可以刷新后查看文件。<br>tell()：返回指针当前的位置</p>
+<p>file.closed：返回true如果文件已被关闭，否则返回false。<br>file.mode：返回被打开文件的访问模式。<br>file.name：返回文件的名称。<br>file.softspace：如果用print输出后，必须跟一个空格符，则返回false，否则返回true。</p>
+<p>注：使用open()打开文件后需要在读写完成后使用close()方法关闭文件。使用with open(‘文件路径’) as f: 可以自动调用f.close()而不需要在后面单独写一行代码关闭文件。</p>
 
       
     </div>
@@ -342,8 +342,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/27/Python-文件读写操作/" rel="next" title="python 文件读写操作">
-                <i class="fa fa-chevron-left"></i> python 文件读写操作
+              <a href="/2019/01/04/Python-os和os-path模块常用的方法/" rel="next" title="Python os和os.path模块常用的方法">
+                <i class="fa fa-chevron-left"></i> Python os和os.path模块常用的方法
               </a>
             
           </div>
@@ -352,8 +352,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/29/Python-各种推导式用法/" rel="prev" title="Python 各种推导式用法">
-                Python 各种推导式用法 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/01/17/Python-第三方库requests常用用法/" rel="prev" title="Python 第三方库requests常用用法">
+                Python 第三方库requests常用用法 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -406,17 +406,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -458,22 +449,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#get请求"><span class="nav-number">1.</span> <span class="nav-text">get请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#post请求"><span class="nav-number">2.</span> <span class="nav-text">post请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#会话保持（session）"><span class="nav-number">3.</span> <span class="nav-text">会话保持（session）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#证书验证"><span class="nav-number">4.</span> <span class="nav-text">证书验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置代理"><span class="nav-number">5.</span> <span class="nav-text">设置代理</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

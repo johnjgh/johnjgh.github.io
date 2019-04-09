@@ -79,19 +79,17 @@
 
 
 
-<meta name="description" content="配置git for windows并创建SSH keys1、git for windows 使用前需要先注册github账号，新建一个repository，使用SSH来建立连接； 2、安装好git for windows后在git bash中输入ssh-keygen -t rsa -C &amp;quot;your_email@example.com&amp;quot;，运行后会让你输入文件名来保存SSH key">
+<meta name="description" content="get请求response =requests.get(url,params,headers,cookies,timeout) 其中url是请求的网页地址，params可以传递参数，一般是字典的数据格式，headers是请求头，也是字典的格式，一般包含UA信息（User-Agent）和Referer（防盗链）。timeout是设置超时的时间。 response.text  返回headers中的编">
 <meta property="og:type" content="article">
-<meta property="og:title" content="git for window使用方法">
-<meta property="og:url" content="http://yoursite.com/2019/01/17/git-for-window使用方法/index.html">
+<meta property="og:title" content="Python 第三方库requests常用用法">
+<meta property="og:url" content="http://yoursite.com/2019/01/17/Python-第三方库requests常用用法/index.html">
 <meta property="og:site_name" content="Johnjgh&#39;s blog">
-<meta property="og:description" content="配置git for windows并创建SSH keys1、git for windows 使用前需要先注册github账号，新建一个repository，使用SSH来建立连接； 2、安装好git for windows后在git bash中输入ssh-keygen -t rsa -C &amp;quot;your_email@example.com&amp;quot;，运行后会让你输入文件名来保存SSH key">
+<meta property="og:description" content="get请求response =requests.get(url,params,headers,cookies,timeout) 其中url是请求的网页地址，params可以传递参数，一般是字典的数据格式，headers是请求头，也是字典的格式，一般包含UA信息（User-Agent）和Referer（防盗链）。timeout是设置超时的时间。 response.text  返回headers中的编">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://yoursite.com/images/git.png">
-<meta property="og:updated_time" content="2019-03-22T08:13:30.427Z">
+<meta property="og:updated_time" content="2019-04-09T02:59:02.965Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="git for window使用方法">
-<meta name="twitter:description" content="配置git for windows并创建SSH keys1、git for windows 使用前需要先注册github账号，新建一个repository，使用SSH来建立连接； 2、安装好git for windows后在git bash中输入ssh-keygen -t rsa -C &amp;quot;your_email@example.com&amp;quot;，运行后会让你输入文件名来保存SSH key">
-<meta name="twitter:image" content="http://yoursite.com/images/git.png">
+<meta name="twitter:title" content="Python 第三方库requests常用用法">
+<meta name="twitter:description" content="get请求response =requests.get(url,params,headers,cookies,timeout) 其中url是请求的网页地址，params可以传递参数，一般是字典的数据格式，headers是请求头，也是字典的格式，一般包含UA信息（User-Agent）和Referer（防盗链）。timeout是设置超时的时间。 response.text  返回headers中的编">
 
 
 
@@ -121,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/01/17/git-for-window使用方法/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/17/Python-第三方库requests常用用法/">
 
 
 
 
 
-  <title>git for window使用方法 | Johnjgh's blog</title>
+  <title>Python 第三方库requests常用用法 | Johnjgh's blog</title>
   
 
 
@@ -234,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/17/git-for-window使用方法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/17/Python-第三方库requests常用用法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Johnjgh">
@@ -251,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">git for window使用方法</h1>
+          <h1 class="post-title" itemprop="name headline">Python 第三方库requests常用用法</h1>
         
 
         <div class="post-meta">
@@ -263,7 +261,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-17T19:23:34+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-17T09:24:18+08:00">
                 2019-01-17
               </time>
             
@@ -301,23 +299,25 @@
       
 
       
-        <h2 id="配置git-for-windows并创建SSH-keys"><a href="#配置git-for-windows并创建SSH-keys" class="headerlink" title="配置git for windows并创建SSH keys"></a>配置git for windows并创建SSH keys</h2><p>1、git for windows 使用前需要先注册github账号，新建一个repository，使用SSH来建立连接；</p>
-<p>2、安装好git for windows后在git bash中输入<code>ssh-keygen -t rsa -C &quot;your_email@example.com&quot;</code>，运行后会让你输入文件名来保存SSH key的代码，以及密码（该密码是你push文件的时候要输入的密码），可以直接按回车键跳过，则会在本地电脑用户的目录下生成一个.ssh文件夹，其中包含了 id_rsa 和 id_rsa.pub 两个秘钥文件；</p>
-<p>3、打开id_rsa.pub文件，并复制里面的内容（也可以用git命令复制该文件的内容，如<code>clip &lt; ~/.ssh/id_rsa.pub</code>），然后登录你的github账号，从右上角的设置（ Account Settings ）进入，然后点击菜单栏的 SSH key 进入页面添加 SSH key，最后把内容粘贴到key对应的框内，点击add SSH key即可成功建立SSH连接。</p>
-<h2 id="git常用语法"><a href="#git常用语法" class="headerlink" title="git常用语法"></a>git常用语法</h2><p><img src="/images/git.png" alt="git基本原理图"></p>
-<p>git init 初始化当前目录，会在当前目录（工作区）下新建一个隐藏的.git文件夹，主要用于版本控制，也称为版本库，里面的文件index是一个暂存区。</p>
-<p>git add .  添加所有文件的修改到暂存区，“.”代表当前目录下所有文件。<br>git commit -m ‘任意命名，用于区别每一次提交’  提交更改，实际上就是把暂存区的所有内容提交到当前分支。</p>
-<p>git status 查看状态，可以看到是否对文件进行了更改，以及哪些文件被更改了。</p>
-<p>git remote add/remove origin (url)  远程添加或删除远程仓库，origin是默认的仓库名，可以改为任意名称，url是SSH对应的地址，url只有在添加时才需要使用，当移除时或push调用时不需要用到url。</p>
-<p>git remote -v 查看远程添加的仓库，v是view的简写，意思是查看。</p>
-<p>git log  显示当前分支的版本历史。</p>
-<p>git push/pull origin master 将本地commit的代码上传到远程版本库中或从远程版本库中下载到本地资源库中，origin和上面的remote中的origin对应，master代表一个分支点。</p>
-<p>git clone url 将文件从远端的地址克隆到本地中。</p>
-<p>git branch 查看当前的分支在哪个位置。</p>
-<p>git checkout  当后面跟上分支名称时可以跳转到那个分支，当后面跟上版本号时可以恢复到那个版本。</p>
-<p><strong>注：</strong>.gitignore中可以添加需要忽略的文件或目录，这样在提交更改时就会自动忽略对应的文件和目录。</p>
-<p>当使用git log查看分支版本历史时，使用上下箭头可以翻看所有版本历史，按q可以退出。</p>
-<p>当上传发生冲突时，需要先用pull命令把远端的更改下载到本地资源库，对比冲突，确定一个版本后再重新上传。</p>
+        <h2 id="get请求"><a href="#get请求" class="headerlink" title="get请求"></a>get请求</h2><pre><code>response =requests.get(url,params,headers,cookies,timeout)
+</code></pre><p>其中url是请求的网页地址，params可以传递参数，一般是字典的数据格式，headers是请求头，也是字典的格式，一般包含UA信息（User-Agent）和Referer（防盗链）。timeout是设置超时的时间。</p>
+<p>response.text  返回headers中的编码解析的结果</p>
+<p>response.content 返回二进制结果</p>
+<p>response.json() 返回JSON格式，等同于json.loads（response.text）方法，可能抛出异常。</p>
+<p>response.status_code 返回获取网页时的状态码，200为正常访问。</p>
+<p>response.raw 返回原始socket respons，需要加参数stream=True。</p>
+<p>response.encoding 可以定义网页的编码方式</p>
+<h2 id="post请求"><a href="#post请求" class="headerlink" title="post请求"></a>post请求</h2><pre><code>response = requests.post(url,data,files)
+</code></pre><p>url是提交请求的网址，data是一个字典形式的数据表单，files是在文件上传时使用的，需要传入一个类似于{‘files’:open(文件路径,mode)}的字典。</p>
+<h2 id="会话保持（session）"><a href="#会话保持（session）" class="headerlink" title="会话保持（session）"></a>会话保持（session）</h2><p>cookies的一个作用就是可以用于模拟登陆，做会话维持，而使用session可以将cookies信息保存下来，下次请求时就不需要再次传入cookies。</p>
+<pre><code>session = requests.Session()
+</code></pre><p><code>session.get(url)</code> 将网页的cookies信息传入session中，下次访问网页时会自动传入cookies。</p>
+<h2 id="证书验证"><a href="#证书验证" class="headerlink" title="证书验证"></a>证书验证</h2><p>在<code>requests.get(url,verify)</code>中verify默认是True，可以设为False，会跳过证书验证，也可以设为一个证书路径，则会验证该指定证书。</p>
+<h2 id="设置代理"><a href="#设置代理" class="headerlink" title="设置代理"></a>设置代理</h2><pre><code>proxies = {
+    &quot;http&quot;: &quot;http://user:password@127.0.0.1:9743/&quot;,
+    &quot;https&quot;: &quot;https://user:password@127.0.0.1:9743&quot;,
+}
+</code></pre><p>当需要用户名和密码时就要添加“user:password@”这一段，如果不需要密码，则去除这一段。<br>通过<code>response = requests.get(url, proxies=proxies)</code>使用代理ip来访问网页。</p>
 
       
     </div>
@@ -342,8 +342,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/29/Python-各种推导式用法/" rel="next" title="Python 各种推导式用法">
-                <i class="fa fa-chevron-left"></i> Python 各种推导式用法
+              <a href="/2019/01/09/Python-文件读写操作/" rel="next" title="python 文件读写操作">
+                <i class="fa fa-chevron-left"></i> python 文件读写操作
               </a>
             
           </div>
@@ -352,8 +352,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/01/18/CSS网页布局基本属性/" rel="prev" title="CSS网页布局基本属性">
-                CSS网页布局基本属性 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/01/26/Python-各种推导式用法/" rel="prev" title="Python 各种推导式用法">
+                Python 各种推导式用法 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -468,7 +468,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置git-for-windows并创建SSH-keys"><span class="nav-number">1.</span> <span class="nav-text">配置git for windows并创建SSH keys</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git常用语法"><span class="nav-number">2.</span> <span class="nav-text">git常用语法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#get请求"><span class="nav-number">1.</span> <span class="nav-text">get请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#post请求"><span class="nav-number">2.</span> <span class="nav-text">post请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#会话保持（session）"><span class="nav-number">3.</span> <span class="nav-text">会话保持（session）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#证书验证"><span class="nav-number">4.</span> <span class="nav-text">证书验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置代理"><span class="nav-number">5.</span> <span class="nav-text">设置代理</span></a></li></ol></div>
             
 
           </div>
