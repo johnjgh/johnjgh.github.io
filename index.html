@@ -229,6 +229,142 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/15/Ubuntu18-04-1下通过uwsgi和nginx部署django项目并连接mysql数据库/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Johnjgh">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Johnjgh's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/15/Ubuntu18-04-1下通过uwsgi和nginx部署django项目并连接mysql数据库/" itemprop="url">'Ubuntu18.04.1下通过uwsgi和nginx部署django项目并连接mysql数据库'</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-15T09:52:20+08:00">
+                2019-04-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>uwsgi（python的一个包）在访问过程中起到桥梁的作用，它可以连接nginx和django，而nginx可以直接处理所有的静态请求（如静态文件等），所有的非静态请求则通过uwsgi传递给django，django接收请求并进行逻辑处理以及和mysql数据库交互，将得到的网页文件或数据包通过uwsgi返回给nginx，nginx再返回给浏览器。<br>这里我的项目下载地址为：<a href="https://github.com/johnjgh/project/tree/ubuntu" target="_blank" rel="noopener">https://github.com/johnjgh/project/tree/ubuntu</a> ，将项目放到<code>/home</code>目录下。</p>
+<h2 id="安装并配置nginx"><a href="#安装并配置nginx" class="headerlink" title="安装并配置nginx"></a>安装并配置nginx</h2><p>首先，在Ubuntu系统下打开终端，输入<code>sudo su</code>进入root用户模式下（需要密码），然后输入<code>apt-get -y update</code>  -y参数表示确认安装，不会提示是否确认，apt是Ubuntu系统的包管理器。然后，再次输入<code>apt-get install -y nginx</code>即可安装nginx。安装完成后打开<code>/etc/nginx/nginx.conf</code>文件（可以使用vim命令打开，需要命令行输入<code>apt-get install -y vim</code>安装，安装完成后直接在命令行输入<code>vim /etc/nginx/nginx.conf</code>即可打开文件，基本操作：打开后按键盘的i键可以进入编辑模式，按Esc键退出编辑模式，输入:wq保存并退出，:q!不应用更改退出），修改端口号。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       8088;    # 修改端口号</span><br><span class="line">    server_name  localhost;</span><br><span class="line"></span><br><span class="line">    #charset UTF-8; </span><br><span class="line"></span><br><span class="line">    #access_log  logs/host.access.log  main;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        root   html;</span><br><span class="line">        index  index.html index.htm;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>nginx常用命令：</p>
+<pre><code>service nginx start    启动
+service nginx stop     停止
+service nginx restart  重启
+</code></pre><p>默认端口号是80，但是80端口很容易被其它程序占用，这里我们将其更改为8088。修改完使用命令<code>service nginx start</code>启动nginx，再打开网址 <a href="http://127.0.0.1:8088/" target="_blank" rel="noopener">http://127.0.0.1:8088/</a> 可以看到nginx的欢迎页面，此时说明nginx启动成功。</p>
+<h2 id="配置mysql数据库"><a href="#配置mysql数据库" class="headerlink" title="配置mysql数据库"></a>配置mysql数据库</h2><p><strong>1、创建数据库并导入数据</strong><br>Ubuntu系统自带了mysql5.7版本的数据库，在命令行root用户模式下输入mysql -uroot -p，提示输入密码，如果没有设置密码就只需要再按一次回车键，就可以进入，进入mysql后，输入<code>create database axf;</code>创建一个数据库，然后输入<code>use axf;</code>使用数据库，导入数据库将project目录下的axf.sql导入即可，即输入命令<code>source /home/project/axf.sql;</code>完成数据导入。</p>
+<p><strong>2、给数据库设置密码</strong><br>导入数据完成后，需要给数据库设置密码，输入命令<code>use mysql;</code>，然后再输入命令<code>update user set authentication_string=PASSWORD(&quot;123456&quot;) where User=&#39;root&#39;;</code>设置密码，接着再输入命令<code>update user set plugin=&quot;mysql_native_password&quot;;</code>，最后刷新一次即可完成密码的设置。（注意：这里的数据库名称axf和数据库用户以及数据库密码需要与django项目中settings文件内的相对应）。</p>
+<h2 id="安装uwsgi、django、pymysql"><a href="#安装uwsgi、django、pymysql" class="headerlink" title="安装uwsgi、django、pymysql"></a>安装uwsgi、django、pymysql</h2><p>Ubuntu系统默认安装了python3和python2，所以在使用pip（python的包管理器）安装python包时需要指定为python3，即在命令行中输入<code>pip3 install uwsgi</code>就可以安装uwsgi，同理，输入<code>pip3 install django</code>和<code>pip3 install pymysql</code>即可安装django和pymysql，这里的pymysql是python用来连接mysql数据库的一个包。</p>
+<h2 id="创建uwsgi-ini配置文件（也可以是-xml等后缀）并启动项目"><a href="#创建uwsgi-ini配置文件（也可以是-xml等后缀）并启动项目" class="headerlink" title="创建uwsgi.ini配置文件（也可以是.xml等后缀）并启动项目"></a>创建uwsgi.ini配置文件（也可以是.xml等后缀）并启动项目</h2><p>在项目目录下创建project_uwsgi.ini文件，其内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[uwsgi]</span><br><span class="line"># 指定项目执行的端口号（默认为8000）</span><br><span class="line">socket  = :8000</span><br><span class="line"># 指定运行目录（即项目的目录）</span><br><span class="line">chdir   = /home/project</span><br><span class="line"># 项目的wsgi文件相对于此文件的位置（在此文件所在目录下的project目录中的wsgi文件）</span><br><span class="line">module  = project.wsgi</span><br><span class="line"># 允许主进程存在</span><br><span class="line">master  = true</span><br><span class="line"># 开启的进程数量</span><br><span class="line">processes = 4</span><br><span class="line"># 当服务器退出的时候自动清理环境，删除unix socket文件和pid文件。</span><br><span class="line">vacuum    = true</span><br></pre></td></tr></table></figure></p>
+<p>创建完配置文件后命令行输入命令<code>cd /home/project</code>进入project目录，然后输入<code>uwsgi --ini project_uwsgi.ini</code>启动项目。</p>
+<h2 id="修改nginx-conf配置文件，连接uwsgi"><a href="#修改nginx-conf配置文件，连接uwsgi" class="headerlink" title="修改nginx.conf配置文件，连接uwsgi"></a>修改nginx.conf配置文件，连接uwsgi</h2><p>打开/etc/nginx/nginx.conf配置文件，添加如下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    # 指定的是nginx代理uwsgi对外的端口号。</span><br><span class="line">    listen         8099; </span><br><span class="line">    # 指定服务器地址，这里指定为本机ip。</span><br><span class="line">    server_name    127.0.0.1 </span><br><span class="line">    charset UTF-8;</span><br><span class="line">    # 运行过程中出错时产生的日志文件的路径，</span><br><span class="line">    access_log      /var/log/nginx/project_access.log;</span><br><span class="line">    error_log       /var/log/nginx/project_error.log;</span><br><span class="line"></span><br><span class="line">    client_max_body_size 75M;</span><br><span class="line">    # 连接uwsgi，include必须为uwsgi_params，uwsgi_pass指定的端口号需要和project_uwsgi.ini中的保持一致。</span><br><span class="line">    location / &#123; </span><br><span class="line">        include uwsgi_params;</span><br><span class="line">        uwsgi_pass 127.0.0.1:8000;</span><br><span class="line">        uwsgi_read_timeout 2;</span><br><span class="line">    &#125;   </span><br><span class="line">    # 配置nginx访问静态文件，alias必须指定项目project中的static文件夹。</span><br><span class="line">    location /static &#123;</span><br><span class="line">        expires 30d;</span><br><span class="line">        autoindex on; </span><br><span class="line">        add_header Cache-Control private;</span><br><span class="line">        alias /home/project/static/;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>配置完成后输入<code>service nginx restart</code>重启nginx。</p>
+<h2 id="修改python3下的django包中mysql的部分文件"><a href="#修改python3下的django包中mysql的部分文件" class="headerlink" title="修改python3下的django包中mysql的部分文件"></a>修改python3下的django包中mysql的部分文件</h2><p>在上面的配置全部完成后，还需要修改两个文件，即路径<code>/usr/local/lib/python3.6/dist-packages/django/db/backends/mysql</code>下的base.py和operations.py两个文件，否则可能会报错。<br>1、打开base.py文件，将以下代码注释掉：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if version &lt; (1, 3, 3):</span><br><span class="line">    raise ImproperlyConfigured(&quot;mysqlclient 1.3.3 or newer is required; you have %s&quot; % Database.__version__)</span><br></pre></td></tr></table></figure></p>
+<p>原因可能是数据库版本太低或缺少数据库的客户端。<br>2、打开operations.py文件，将其中的query = query.decode(errors=’replace’)中的decode<br>换成encode，原因是python3中把decode方法去掉了，只能使用encode方法。</p>
+<p><strong>在完成了以上步骤之后，在浏览器中输入网址 <a href="http://127.0.0.1:8099/home/" target="_blank" rel="noopener">http://127.0.0.1:8099/home/</a> ，打开网址并更改浏览器为手机模式，即可看到项目成功被打开，此时整个项目的部署就大功告成了。</strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/09/Linux常用命令/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -459,7 +595,7 @@
       
         
           
-            <p>1、安装：win10进入应用商店安装Ubuntu，安装后到docker官网下载docker软件并安装。</p>
+            <p>1、安装：直接到docker官网下载docker软件并安装。</p>
 <p>2、运行：打开docker软件后，在命令行下即可执行命令创建容器，可以创建多个容器，各个容器是独立分开的。</p>
 <p>3、docker常用命令</p>
 <pre><code>docker run -p 8080:80 -v D:\hexo\source\html:/usr/share/nginx/html --name mynginx -d nginx
@@ -1450,199 +1586,13 @@ dict0={v:k for k,v in m.items()}
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/25/Python-列表、元组、字符串、字典和集合常用的内置方法/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Johnjgh">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Johnjgh's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/25/Python-列表、元组、字符串、字典和集合常用的内置方法/" itemprop="url">Python 列表、元组、字符串、字典和集合常用的内置方法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-25T17:45:27+08:00">
-                2018-12-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>python中的数据类型主要分为列表list、元组tuple、字符串str、字典dict、集合set。</strong></p>
-<h2 id="列表（可变序列）"><a href="#列表（可变序列）" class="headerlink" title="列表（可变序列）"></a><strong>列表（可变序列）</strong></h2><p>append()：在最后增加一个元素。</p>
-<p>extend()：扩展列表（用另一个列表）。</p>
-<p>count()     ：计算并返回指定元素的数量。</p>
-<p>remove()：删除一个元素。</p>
-<p>pop()：删除并返回最后一个元素。</p>
-<p>sort()：按照从小到大排序。</p>
-<p>insert()：在指定位置插入一个元素。</p>
-<p>copy()：拷贝一个副本。</p>
-<p>clear()：清空所有元素。</p>
-<p>reverse()：原地翻转所有的数据。</p>
-<p>index()：寻找并返回参数的索引值。</p>
-<p><strong>通用操作：(s表示列表）</strong><br>s[i:j:k]切片获取i到j之间的元素，包括i，不包括j，k表示步长，每隔k个获取一个元素。<br>s[i:j]=t 改变s中一段元素为一个元素t。<br>del s[i] 删除下标为i的元素。<br>del s[i:j] 删除一段元素。</p>
-<h2 id="元组（不可变序列）"><a href="#元组（不可变序列）" class="headerlink" title="元组（不可变序列）"></a>元组（不可变序列）</h2><p>元组中的元素不可删除，不可改变，不可增加，只能用index和count两种方法</p>
-<h2 id="字符串（不可变序列）"><a href="#字符串（不可变序列）" class="headerlink" title="字符串（不可变序列）"></a><strong>字符串（不可变序列）</strong></h2><p>capitalize()：将字符串的第一个字符转换为大写。</p>
-<p>center(width, fillchar)：返回一个指定的宽度 width 居中的字符串，fillchar 为填充的字符，默认为空格。</p>
-<p>count(str, beg= 0,end=len(string))：返回 str 在 string 里面出现的次数，如果 beg 或者 end 指定则返回指定范围内 str 出现的次数。</p>
-<p>bytes.decode(encoding=”utf-8”, errors=”strict”)：Python3 中没有 decode 方法，但我们可以使用 bytes 对象的 decode() 方法来解码给定的 bytes 对象，这个 bytes 对象可以由 str.encode() 来编码返回。</p>
-<p>encode(encoding=’UTF-8’,errors=’strict’)：以 encoding 指定的编码格式编码字符串，如果出错默认报一个ValueError 的异常，除非 errors 指定的是’ignore’或者’replace’。</p>
-<p>endswith(suffix, beg=0, end=len(string))：检查字符串是否以 obj 结束，如果beg 或者 end 指定则检查指定的范围内是否以 obj 结束，如果是，返回 True,否则返回 False。</p>
-<p>expandtabs(tabsize=8)：把字符串 string 中的 tab 符号转为空格，tab 符号默认的空格数是 8 。</p>
-<p>find(str, beg=0 end=len(string))：检测 str 是否包含在字符串中 中，如果 beg 和 end 指定范围，则检查是否包含在指定范围内，如果是返回开始的索引值，否则返回-1。</p>
-<p>index(str, beg=0, end=len(string))：跟find()方法一样，只不过如果str不在字符串中会报一个异常。</p>
-<p>isalnum()：如果字符串至少有一个字符并且所有字符都是字母或数字则返回 True,否则返回 False。</p>
-<p>isalpha()：如果字符串至少有一个字符并且所有字符都是字母则返回 True,否则返回 False。</p>
-<p>isdigit()：如果字符串只包含数字则返回 True 否则返回 False。</p>
-<p>islower()：如果字符串中包含至少一个区分大小写的字符，并且所有这些(区分大小写的)字符都是小写，则返回 True，否则返回 False。</p>
-<p>isnumeric()：如果字符串中只包含数字字符，则返回 True，否则返回 False。</p>
-<p>isspace()：如果字符串中只包含空格，则返回 True，否则返回 False。</p>
-<p>istitle()：如果字符串是标题化的(见 title())则返回 True，否则返回 False。</p>
-<p>isupper()：如果字符串中包含至少一个区分大小写的字符，并且所有这些(区分大小写的)字符都是大写，则返回 True，否则返回 False。</p>
-<p>join(seq)：以指定字符串作为分隔符，将 seq 中所有的元素(的字符串表示)合并为一个新的字符串。</p>
-<p>ljust(width[, fillchar])：返回一个原字符串左对齐,并使用 fillchar 填充至长度 width 的新字符串，fillchar 默认为空格。</p>
-<p>lower()：转换字符串中所有大写字符为小写。</p>
-<p>lstrip()：截掉字符串左边的空格。</p>
-<p>maketrans()：创建字符映射的转换表，对于接受两个参数的最简单的调用方式，第一个参数是字符串，表示需要转换的字符，第二个参数也是字符串表示转换的目标。</p>
-<p>replace(old, new [, max])：把将字符串中的 str1 替换成 str2,如果 max 指定，则替换不超过 max 次。</p>
-<p>rfind(str, beg=0,end=len(string))：类似于 find()函数，不过是从右边开始查找。</p>
-<p>rindex( str, beg=0, end=len(string))：类似于 index()，不过是从右边开始。</p>
-<p>rjust(width,[, fillchar])：返回一个原字符串右对齐,并使用fillchar(默认空格）填充至长度 width 的新字符串。</p>
-<p>rstrip()删除字符串字符串末尾的空格。</p>
-<p>split(str=””, num=string.count(str))：num=string.count(str))以 str 为分隔符截取字符串，如果 num 有指定值，则仅截取 num 个子字符串。</p>
-<p>splitlines([keepends])：按照行(‘\r’, ‘\r\n’, \n’)分隔，返回一个包含各行作为元素的列表，如果参数 keepends 为 False，不包含换行符，如果为 True，则保留换行符。</p>
-<p>startswith(str, beg=0,end=len(string))：检查字符串是否是以 obj 开头，是则返回 True，否则返回 False。如果beg 和 end 指定值，则在指定范围内检查。</p>
-<p>strip([chars])：在字符串上执行 lstrip()和 rstrip()。</p>
-<p>swapcase()：将字符串中大写转换为小写，小写转换为大写。</p>
-<p>title()：返回”标题化”的字符串,就是说所有单词都是以大写开始，其余字母均为小写。</p>
-<p>translate(table, deletechars=””)<br>根据 str 给出的表(包含 256 个字符)转换 string 的字符,要过滤掉的字符放到 deletechars 参数中</p>
-<p>upper()：转换字符串中的小写字母为大写 zfill (width)。</p>
-<p>zfill (width)：返回长度为 width 的字符串，原字符串右对齐，前面填充0</p>
-<p>isdecimal()：检查字符串是否只包含十进制字符，如果是返回 true，否则返回 false。</p>
-<h2 id="字典（映射）"><a href="#字典（映射）" class="headerlink" title="字典（映射）"></a>字典（映射）</h2><p>dict.clear()：删除字典内所有元素。</p>
-<p>dict.copy()：返回一个字典的浅复制。</p>
-<p>dict.fromkeys(seq[, val])：创建一个新字典，以序列 seq 中元素做字典的键，val 为字典所有键对应的初始值。</p>
-<p>dict.get(key, default=None)：返回指定键的值，如果值不在字典中返回default值。</p>
-<p>dict.has_key(key)：如果键在字典dict里返回true，否则返回false。</p>
-<p>dict.items()：以列表返回可遍历的(键, 值) 元组数组。</p>
-<p>dict.keys()：以列表返回一个字典所有的键。</p>
-<p>dict.setdefault(key, default=None)：和get()类似, 但如果键不存在于字典中，将会添加键并将值设为default。</p>
-<p>dict.update(dict2)：把字典dict2的键/值对更新到dict里。</p>
-<p>dict.values()：以列表返回字典中的所有值。</p>
-<p>pop(key[,default])：删除字典给定键 key 所对应的值，返回值为被删除的值。key值必须给出。 否则，返回default值。</p>
-<p>popitem()：随机返回并删除字典中的一对键和值。</p>
-<h2 id="集合：确定性、互异性、无序性"><a href="#集合：确定性、互异性、无序性" class="headerlink" title="集合：确定性、互异性、无序性"></a>集合：确定性、互异性、无序性</h2><p>add()：为集合添加元素。</p>
-<p>clear()：移除集合中的所有元素。</p>
-<p>copy()：拷贝一个集合。</p>
-<p>difference()：返回多个集合的差集。</p>
-<p>pop()：随机移除元素。</p>
-<p>remove()：移除指定元素。</p>
-<p>union()：返回两个集合的并集。</p>
-<p>update()：给集合添加元素，必须传入一个集合。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1686,7 +1636,7 @@ dict0={v:k for k,v in m.items()}
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
