@@ -107,35 +107,14 @@ function Bullet() {
     //让子弹飞
     var timerBulletFly = setInterval(function () {
         bullet.style.top = bullet.offsetTop - 10 + 'px';
-        if (bullet.offsetTop <= 10 -10) { clearinterval(timerbulletfly); mainscreen.removechild(bullet); } }, 50); bullet.timer="timerBulletFly;" alltimer['timerbulletfly'+timerbulletfly]="timerBulletFly" 产生敌人 function enemy() var enemy="document.createElement('div')" enemy.classname="enemy" mainscreen.appendchild(enemy) enemy.style.top="0px" enemy.style.left="randomNum(0," 472) + 'px' 让敌人飞 timerenemyfly="setInterval(function" () if (enemy.offsettop>= 768) {
-            clearInterval(timerEnemyFly)
-            mainScreen.removeChild(enemy)
+        if (bullet.offsetTop <= 1 10 -10) { clearinterval(timerbulletfly); mainscreen.removechild(bullet); } }, 50); bullet.timer="timerBulletFly;" alltimer['timerbulletfly'+timerbulletfly]="timerBulletFly;" }; 子弹打到敌人 function attach() var allbullets="document.getElementsByClassName('bullet')" allenemys="document.getElementsByClassName('enemy')" for (var i="0;" < allbullets.length; i++){ j="0;" allenemys.length; j++){ b="allbullets[i]" e="allenemys[j]" if (attachfunc(b, e)) clearinterval(b.timer) clearinterval(e.timer) mainscreen.removechild(b) mainscreen.removechild(e) document.getelementbyid('hit').play() score.firstelementchild.innerhtml="parseInt(Score.firstElementChild.innerHTML)" + break 产生敌人 enemy() enemy="document.createElement('div');" enemy.classname="enemy" ; mainscreen.appendchild(enemy); enemy.style.top="0px" enemy.style.left="randomNum(0," 472) 'px'; 让敌人飞 timerenemyfly="setInterval(function" () (enemy.offsettop>= 768) {
+            clearInterval(timerEnemyFly);
+            mainScreen.removeChild(enemy);
         }
-    }, 50)
-    enemy.timer = timerEnemyFly
-    alltimer['timerEnemyFly'+timerEnemyFly] = timerEnemyFly
-}
-
-//子弹打到敌人
-function attach() {
-    var allbullets = document.getElementsByClassName('bullet')
-    var allenemys = document.getElementsByClassName('enemy')
-    for (var i = 0; i < allbullets.length; i++){
-        for (var j = 0; j < allenemys.length; j++){
-            var b = allbullets[i]
-            var e = allenemys[j]
-            if (attachFunc(b, e)) {
-                clearInterval(b.timer)
-                clearInterval(e.timer)
-                mainScreen.removeChild(b)
-                mainScreen.removeChild(e)
-                document.getElementById('hit').play()
-                Score.firstElementChild.innerHTML = parseInt(Score.firstElementChild.innerHTML) + 1
-                break
-            }
-        }
-    }
-}
+    }, 50);
+    enemy.timer = timerEnemyFly;
+    alltimer['timerEnemyFly'+timerEnemyFly] = timerEnemyFly;
+};
 
 //敌人碰到飞机
 function death() {
