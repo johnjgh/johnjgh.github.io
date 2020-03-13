@@ -229,6 +229,264 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/09/Python-文件读写操作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Johnjgh">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Johnjgh's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/09/Python-文件读写操作/" itemprop="url">python 文件读写操作</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-09T15:34:55+08:00">
+                2019-01-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>file = open(file_name，mode)<br><strong>mode(打开文件的模式)：</strong><br>t    文本模式 (默认)。</p>
+<p>x    写模式，新建一个文件，如果该文件已存在则会报错。</p>
+<p>b    二进制模式。</p>
+<p><em>+</em> 打开一个文件进行更新(可读可写)。</p>
+<p>r    以只读方式打开文件。文件的指针将会放在文件的开头。这是默认模式。</p>
+<p>rb    以二进制格式打开一个文件用于只读。文件指针将会放在文件的开头。这是默认模式。一般用于非文本文件如图片等。</p>
+<p>r+    打开一个文件用于读写。文件指针将会放在文件的开头。</p>
+<p>rb+    以二进制格式打开一个文件用于读写。文件指针将会放在文件的开头。一般用于非文本文件如图片等。</p>
+<p>w    打开一个文件只用于写入。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。</p>
+<p>wb    以二进制格式打开一个文件只用于写入。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。一般用于非文本文件如图片等。</p>
+<p>w+    打开一个文件用于读写。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。</p>
+<p>wb+    以二进制格式打开一个文件用于读写。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。一般用于非文本文件如图片等。</p>
+<p>a    打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，创建新文件进行写入。</p>
+<p>ab    以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，创建新文件进行写入。</p>
+<p>a+    打开一个文件用于读写。如果该文件已存在，文件指针将会放在文件的结尾。文件打开时会是追加模式。如果该文件不存在，创建新文件用于读写。</p>
+<p>ab+    以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。如果该文件不存在，创建新文件用于读写。</p>
+<p>file.close()：关闭文件<br>file.read()：读取文件<br>file.seek()：将指针定位到指定位置<br>file.flush()：刷新文件，如写文件后不想关闭文件，可以刷新后查看文件。<br>tell()：返回指针当前的位置</p>
+<p>file.closed：返回true如果文件已被关闭，否则返回false。<br>file.mode：返回被打开文件的访问模式。<br>file.name：返回文件的名称。<br>file.softspace：如果用print输出后，必须跟一个空格符，则返回false，否则返回true。</p>
+<p>注：使用open()打开文件后需要在读写完成后使用close()方法关闭文件。使用with open(‘文件路径’) as f: 可以自动调用f.close()而不需要在后面单独写一行代码关闭文件。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/04/Python-os和os-path模块常用的方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Johnjgh">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Johnjgh's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/04/Python-os和os-path模块常用的方法/" itemprop="url">Python os和os.path模块常用的方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-04T21:47:03+08:00">
+                2019-01-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>os</strong><br>os.sep:取代操作系统特定的路径分隔符（如‘\’等）<br>os.name:指示你正在使用的工作平台。比如对于Windows，它是’nt’，而对于Linux/Unix用户，它是’posix’。<br>os.getcwd:得到当前工作目录，即当前python脚本工作的目录路径。<br>os.getenv()和os.putenv:分别用来读取和设置环境变量<br>os.listdir():返回指定目录下的所有文件和目录名<br>os.remove(file):删除一个文件<br>os.stat（file）:获得文件属性<br>os.chmod(file):修改文件权限和时间戳<br>os.mkdir(name):创建目录<br>os.rmdir(name):删除目录<br>os.removedirs（r“c：\python”）:删除多个目录<br>os.system():运行shell命令<br>os.exit():终止当前进程<br>os.linesep:给出当前平台的行终止符。例如，Windows使用’\r\n’，Linux使用’\n’而Mac使用’\r’<br>os.listdir(dirname):列出dirname下的目录和文件<br>os.getcwd():获得当前工作目录<br>os.curdir:返回当前目录（’.’）<br>os.chdir(dirname):改变工作目录到dirname<br><strong>os.path</strong><br>os.path.split():返回一个路径的目录名和文件名<br>os.path.isfile()和os.path.isdir()分别检验给出的路径是一个目录还是文件<br>os.path.exists():检验给出的路径是否真的存在<br>os.path.isdir(name):判断name是不是目录，不是目录就返回false<br>os.path.isfile(name):判断name这个文件是否存在，不存在返回false<br>os.path.exists(name):判断是否存在文件或目录name<br>os.path.getsize(name):或得文件大小，如果name是目录返回0L<br>os.path.abspath(name):获得绝对路径<br>os.path.isabs():判断是否为绝对路径<br>os.path.normpath(path):规范path字符串形式<br>os.path.split(name):分割文件名与目录（事实上，如果你完全使用目录，它也会将最后一个目录作为文件名而分离，同时它不会判断文件或目录是否存在）<br>os.path.splitext():分离文件名和扩展名<br>os.path.join(path,name):连接目录与文件名或目录<br>os.path.basename(path):返回文件名<br>os.path.dirname(path):返回文件路径</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/25/Python-列表、元组、字符串、字典和集合常用的内置方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -456,7 +714,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -497,7 +755,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

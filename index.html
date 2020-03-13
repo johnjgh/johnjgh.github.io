@@ -229,6 +229,262 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/12/逆向某国内著名短视频app，实现视频数据爬取/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Johnjgh">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Johnjgh's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/02/12/逆向某国内著名短视频app，实现视频数据爬取/" itemprop="url">逆向某国内著名短视频app，实现视频数据爬取</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-12T13:53:48+08:00">
+                2020-02-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>问题：通过抓包调试我们可以发现，在每次请求时服务器会在请求头验证<code>x-gorgon</code>和<code>x-khronos</code>字段，如果验证不通过，服务器不会返回数据。</p>
+<h2 id="1、定位加密位置"><a href="#1、定位加密位置" class="headerlink" title="1、定位加密位置"></a>1、定位加密位置</h2><p>首先下载apk文件，然后用jadx反编译（可能需要安装java环境），反编译成功后，我们需要定位到加密函数的位置。</p>
+<h2 id="2、分析加密函数"><a href="#2、分析加密函数" class="headerlink" title="2、分析加密函数"></a>2、分析加密函数</h2><p>点击界面中的魔法棒，全局搜索<code>x-gorgon</code>可以发现加密部分在<code>com.ss.sys.ces.gg.tt</code>的<code>init_gorgon</code>函数中，通过分析<code>java</code>代码可以知道，<code>x-gorgon</code>是调用<code>leviathan</code>函数生成的，而该函数在native层的，其加密逻辑在<code>libcms.so</code>文件中，传入<code>leviathan</code>中的是当前时间的时间戳和一个<code>bytes</code>数组，而这个<code>byte</code>数组也是一个128位字符串调用算法生成的，这个时间戳也是<code>x-khronos</code>的值。<br><img src="/images/gorgon.png" alt="gorgon"></p>
+<h2 id="3、生成128位字符串"><a href="#3、生成128位字符串" class="headerlink" title="3、生成128位字符串"></a>3、生成128位字符串</h2><p>这个128位字符串是由<code>a2，str3，str4，str5</code>四个变量拼接成的，<code>a2</code>是整个<code>url</code>的<code>md5</code>，<code>str3</code>是提交的数据的<code>md5</code>，<code>str4</code>是<code>cookie</code>值的<code>md5</code>，<code>str5</code>是<code>cookie</code>中从<code>sessionid=</code>之后到结束的字符串的<code>md5</code>，事实上<code>str4</code>和<code>str5</code>可以用32个0来表示，<code>str3</code>只有在<code>post</code>请求时需要生成，其它如<code>get</code>请求时也可以用32个0表示。</p>
+<h2 id="4、生成传入so文件中加密函数内的byte数组"><a href="#4、生成传入so文件中加密函数内的byte数组" class="headerlink" title="4、生成传入so文件中加密函数内的byte数组"></a>4、生成传入so文件中加密函数内的byte数组</h2><p>但是这个128位字符串是如何变成一个<code>byte</code>数组的呢，这里调用了<code>com.ss.a.b</code>下的a函数生成，其算法用<code>python</code>实现如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">def generate(a):</span><br><span class="line">    w = []</span><br><span class="line">    for i in range(0, len(a), 2):</span><br><span class="line">        bin_str = bin(int(a[i], 16))[2:] + &apos;0000&apos;</span><br><span class="line">        if len(bin_str) &lt; 8:</span><br><span class="line">            bin_str = &apos;0&apos;*(8-len(bin_str)) + bin_str</span><br><span class="line">        if bin_str.startswith(&apos;1&apos;):</span><br><span class="line">            w.append(-(int(&apos;&apos;.join([&apos;0&apos; if int(k) else &apos;1&apos; for k in bin_str]), 2) + 1) + int(a[i + 1], 16))</span><br><span class="line">        else:</span><br><span class="line">            w.append(int(bin_str, 2) + int(a[i + 1], 16))</span><br><span class="line">    return w</span><br></pre></td></tr></table></figure></p>
+<h2 id="5、模拟运行环境加载so文件进行加密"><a href="#5、模拟运行环境加载so文件进行加密" class="headerlink" title="5、模拟运行环境加载so文件进行加密"></a>5、模拟运行环境加载so文件进行加密</h2><p>接下来就是<code>leviathan</code>函数的实现，由于是在<code>native</code>层中实现加密，且有反调试措施，所以目前只能通过调用<code>so</code>文件来实现加密，这里我使用的是<code>GitHub</code>中的一个开源项目<code>AndroidEmu</code>来模拟运行环境并加载<code>so</code>文件，然后使用<code>python</code>调用<code>leviathan</code>函数，传入时间戳和<code>byte</code>数组得到加密结果，此结果即为<code>x-gorgon</code>的值。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/13/python-js逆向破解12306网站并获取cookie字段RAIL-DEVICEID/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Johnjgh">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Johnjgh's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/13/python-js逆向破解12306网站并获取cookie字段RAIL-DEVICEID/" itemprop="url">python-js逆向破解12306网站并获取cookie字段RAIL_DEVICEID</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-13T10:53:15+08:00">
+                2019-11-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><code>python</code>模拟登录12306时必须要有的一个<code>cookie</code>参数就是<code>RAIL_DEVICEID</code>，否则是登录不成功的，那么这个<code>RAIL_DEVICEID</code>是从哪里来的呢？下面我们来一步步分析。</p>
+<h2 id="1、RAIL-DEVICEID如何获取"><a href="#1、RAIL-DEVICEID如何获取" class="headerlink" title="1、RAIL_DEVICEID如何获取"></a>1、RAIL_DEVICEID如何获取</h2><p>首先可以用chrome浏览器打开12306网站，先清空浏览器的缓存，打开开发者工具，然后刷新，找到<code>RAIL_DEVICEID</code>的值，再全局搜索，可以发现这个值是服务器返回的，所以我们应该分析<code>ajax</code>请求的<code>url</code>是如何生成的。</p>
+<h2 id="2、定位ajax请求在JS的位置"><a href="#2、定位ajax请求在JS的位置" class="headerlink" title="2、定位ajax请求在JS的位置"></a>2、定位ajax请求在JS的位置</h2><p>在知道这个<code>ajax</code>请求的url之后，可以全局搜索url中的关键字段，例如<code>HttpZF/logdevice</code>这部分（需一点点尝试），此时可以发现在<code>GetJS</code>这个文件中找到了这部分url字段，那么我们就已经定位到js生成url的位置了。</p>
+<h2 id="3、分析url请求链接的拼接字段"><a href="#3、分析url请求链接的拼接字段" class="headerlink" title="3、分析url请求链接的拼接字段"></a>3、分析url请求链接的拼接字段</h2><p>接下来，我们来分析这个<code>url</code>是如何拼接成的，从<code>js</code>中扒下来的url拼接代码是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"https://kyfw.12306.cn/otn/HttpZF/logdevice"</span> + (<span class="string">"?algID\x3dBikJbiWz0u\x26hashCode\x3d"</span> + e + a)</span><br></pre></td></tr></table></figure>
+<p>这里总共是四个部分，第一部分是固定不变的，第二部分是每次请求获取GetJS文件时服务器返回的，也就是会变的，可以从<code>GetJS</code>文件中提取（其中<code>\x3d</code>是”=”，<code>\x26</code>是”&amp;”），第三部分和第四部分都是js生成的，可以通过断点调试找到它们的生成过程。</p>
+<h2 id="4、url中e和a如何生成"><a href="#4、url中e和a如何生成" class="headerlink" title="4、url中e和a如何生成"></a>4、url中e和a如何生成</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> a = <span class="string">""</span>, e = <span class="string">""</span>, g = c.getpackStr(b), k = [], q = [], t = [], l = [], p = <span class="number">0</span>; p &lt; g.length; p++)</span><br><span class="line">    <span class="string">"new"</span> != g[p].value &amp;&amp; <span class="number">-1</span> == Eb.indexOf(g[p].key) &amp;&amp; (<span class="number">-1</span> != Bb.indexOf(g[p].key) ? q.push(g[p]) : <span class="number">-1</span> != Db.indexOf(g[p].key) ? t.push(g[p]) : <span class="number">-1</span> != Cb.indexOf(g[p].key) ? l.push(g[p]) : k.push(g[p]));</span><br><span class="line">g = <span class="string">""</span>;</span><br><span class="line"><span class="keyword">for</span> (p = <span class="number">0</span>; p &lt; q.length; p++)</span><br><span class="line">    g = g + q[p].key.charAt(<span class="number">0</span>) + q[p].value;</span><br><span class="line">q = <span class="string">""</span>;</span><br><span class="line"><span class="keyword">for</span> (p = <span class="number">0</span>; p &lt; l.length; p++)</span><br><span class="line">    q = <span class="number">0</span> == p ? q + l[p].value : q + <span class="string">"x"</span> + l[p].value;</span><br><span class="line">l = <span class="string">""</span>;</span><br><span class="line"><span class="keyword">for</span> (p = <span class="number">0</span>; p &lt; t.length; p++)</span><br><span class="line">    l = <span class="number">0</span> == p ? l + t[p].value : l + <span class="string">"x"</span> + t[p].value;</span><br><span class="line">k.push(<span class="keyword">new</span> n(<span class="string">"storeDb"</span>,g));</span><br><span class="line">k.push(<span class="keyword">new</span> n(<span class="string">"srcScreenSize"</span>,q));</span><br><span class="line">k.push(<span class="keyword">new</span> n(<span class="string">"scrAvailSize"</span>,l));</span><br><span class="line"><span class="string">""</span> != d &amp;&amp; k.push(<span class="keyword">new</span> n(<span class="string">"localCode"</span>,pb(d)));</span><br><span class="line">e = c.hashAlg(k, a, e);</span><br><span class="line">a = e.key;</span><br><span class="line">e = e.value;</span><br><span class="line">a += <span class="string">"\x26timestamp\x3d"</span> + (<span class="keyword">new</span> <span class="built_in">Date</span>).getTime();</span><br><span class="line">$a.getJSON(<span class="string">"https://kyfw.12306.cn/otn/HttpZF/logdevice"</span> + (<span class="string">"?algID\x3dBikJbiWz0u\x26hashCode\x3d"</span> + e + a), <span class="literal">null</span>, <span class="function"><span class="keyword">function</span>(<span class="params">a</span>) </span>&#123;</span><br></pre></td></tr></table></figure>
+<p>上面是生成e和a的js代码，其实就在<code>url</code>拼接的上面，这里可以看到，<code>e</code>和<code>a</code>分别对应另一个变量的<code>value</code>和<code>key</code>，而这个变量是调用<code>c.hashAlg</code>方法生成，传入了<code>k，a，e</code>这三个值，通过断点或者观察代码，可以发现其实<code>a</code>和<code>e</code>都是空字符串，所以只要得到<code>k</code>的值即可，这里我们可以将这一段代码扒下来，封装成一个函数，把最终的<code>url</code>赋值给一个变量，然后返回，用<code>python</code>执行这段代码，就可以得到<code>url</code>了。但是，这里有几个外部变量和外部函数，我们要如何去拿到它们呢？</p>
+<h2 id="5、分析外部变量和外部函数"><a href="#5、分析外部变量和外部函数" class="headerlink" title="5、分析外部变量和外部函数"></a>5、分析外部变量和外部函数</h2><p>在封装成函数后，这里需要得到的是<code>c.getpackStr</code>和<code>c.hashAlg</code>以及<code>n，pb</code>这四个函数和<code>d，Eb，Bb，Db，Cb</code>这五个变量，我们来一一分析它们，先分析<code>n，pb</code>这两个函数，可以通过断点调试找到它们，只要把它们拿出来添加到<code>js</code>代码中即可，可以直接调用，这里不多赘述；<code>d</code>是在前面赋值的，调试后可发现它其实是本地局域网的<code>ip</code>地址，可以写死；<code>Eb，Bb，Db，Cb</code>是不变的，同样可以写死；而<code>c.getpackStr</code>通过断点调试，可以发现它最终返回的是一个数组，其中每个元素都是通过n函数得到的一个实例对象，而且这些都是浏览器的相关信息，因此我们可以猜测它是不变，返回值赋值给g变量，此时我们可以通过断点拿到<code>g</code>的值，然后在代码中写死这个<code>g</code>变量。<br>注：这里<code>g</code>变量中有一个<code>cookieCode</code>的值是一段字符串，这其实是个坑，这个值就是在第一步中服务器返回的，有可能你看了发现并没有，那是因为只要<code>g</code>变量中有这个值，那么服务器就不返回该值，所以这个在最开始是并没有值的，此时返回的内容就会有这个值，因此我们可以直接将这个值删除。</p>
+<h2 id="6、调用hashAlg函数执行加密"><a href="#6、调用hashAlg函数执行加密" class="headerlink" title="6、调用hashAlg函数执行加密"></a>6、调用hashAlg函数执行加密</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">hashAlg: <span class="function"><span class="keyword">function</span>(<span class="params">a, b, c</span>) </span>&#123;</span><br><span class="line">    a.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> c, d;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">"object"</span> === <span class="keyword">typeof</span> a &amp;&amp; <span class="string">"object"</span> === <span class="keyword">typeof</span> b &amp;&amp; a &amp;&amp; b)</span><br><span class="line">            <span class="keyword">return</span> c = a.key,</span><br><span class="line">            d = b.key,</span><br><span class="line">            c === d ? <span class="number">0</span> : <span class="keyword">typeof</span> c === <span class="keyword">typeof</span> d ? c &lt; d ? <span class="number">-1</span> : <span class="number">1</span> : <span class="keyword">typeof</span> c &lt; <span class="keyword">typeof</span> d ? <span class="number">-1</span> : <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">throw</span> <span class="string">"error"</span>;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> d = <span class="number">0</span>; d &lt; a.length; d++) &#123;</span><br><span class="line">        <span class="keyword">var</span> e = a[d].key.replace(<span class="built_in">RegExp</span>(<span class="string">"%"</span>, <span class="string">"gm"</span>), <span class="string">""</span>)</span><br><span class="line">          , f = <span class="string">""</span></span><br><span class="line">          , f = <span class="string">"string"</span> == <span class="keyword">typeof</span> a[d].value ? a[d].value.replace(<span class="built_in">RegExp</span>(<span class="string">"%"</span>, <span class="string">"gm"</span>), <span class="string">""</span>) : a[d].value;</span><br><span class="line">        <span class="string">""</span> !== f &amp;&amp; (c += e + f,</span><br><span class="line">        b += <span class="string">"\x26"</span> + (<span class="keyword">void</span> <span class="number">0</span> == gb[e] ? e : gb[e]) + <span class="string">"\x3d"</span> + f)</span><br><span class="line">    &#125;</span><br><span class="line">    a = R.SHA256(c).toString(R.enc.Base64);</span><br><span class="line">    c = a.length;</span><br><span class="line">    d = a.split(<span class="string">""</span>);</span><br><span class="line">    <span class="keyword">for</span> (e = <span class="number">0</span>; e &lt; <span class="built_in">parseInt</span>(c / <span class="number">2</span>); e++)</span><br><span class="line">        <span class="number">0</span> == e % <span class="number">2</span> &amp;&amp; (f = a.charAt(e),</span><br><span class="line">        d[e] = d[c - <span class="number">1</span> - e],</span><br><span class="line">        d[c - <span class="number">1</span> - e] = f);</span><br><span class="line">    a = d.join(<span class="string">""</span>);</span><br><span class="line">    c = a.length;</span><br><span class="line">    d = <span class="string">""</span>;</span><br><span class="line">    d = <span class="number">0</span> == a.length % <span class="number">2</span> ? a.substring(c / <span class="number">2</span>, c) + a.substring(<span class="number">0</span>, c / <span class="number">2</span>) : a.substring(c / <span class="number">2</span> + <span class="number">1</span>, c) + a.charAt(c / <span class="number">2</span>) + a.substring(<span class="number">0</span>, c / <span class="number">2</span>);</span><br><span class="line">    a = Qa(d);</span><br><span class="line">    c = Qa(a);</span><br><span class="line">    c = R.SHA256(c).toString(R.enc.Base64);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> n(b,c)</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p><code>c.hashAlg</code>才是<code>js</code>加密的重头戏，上面是通过断点调试得到的<code>hashAlg</code>的函数，这里就是生成url加密部分的代码，我们同样把它扒下来封装成函数添加到刚刚的js代码中，老办法，找外部函数或变量，这里传进来的就是第4步中的<code>k，a，e</code>，只要在js代码中调用这个<code>hashAlg</code>即可，然后就是<code>R.SHA256，R.enc.Base64</code>以及<code>gb，Qa，n，gb</code>也是一个固定不变的字典，所以可以写死，Qa可以直接扒下来添加到代码中调用，n在第5步已经添加了；而<code>R.SHA256</code>和<code>R.enc.Base64</code>是两个加密算法，可以下载<code>CryptoJS</code>，然后将这两个算法的代码复制粘贴到我们的js代码中，将这里<code>R</code>替换成<code>CryptoJS</code>即可，这里提供<code>CryptoJS</code>文件的下载地址：<br><a href="https://code.google.com/archive/p/crypto-js/downloads" target="_blank" rel="noopener">https://code.google.com/archive/p/crypto-js/downloads</a><br><em>注：需要科学上网</em></p>
+<h2 id="7、如何处理返回的动态JS加密算法"><a href="#7、如何处理返回的动态JS加密算法" class="headerlink" title="7、如何处理返回的动态JS加密算法"></a>7、如何处理返回的动态JS加密算法</h2><p>这里基本上我们的js代码已经处理完成了，可以直接使用<code>python</code>的<code>execjs</code>执行<code>js</code>语句，调用函数，获得url，再使用url去获取<code>RAIL_DEVICEID</code>的值，但是，这里有一个问题，其它的js代码都是不变，而在第6步中的<code>hashAlg</code>函数中，其中的加密算法是会变的，在<code>for</code>循环结束后到<code>return</code>之间的内容是变化，而且<code>Qa</code>也会随之变化，那么如何根据这个变化来随时变换<code>js</code>代码，我是通过搜索，定位，抠取代码，然后拼接来解决这个问题，但是这里由于某些原因，不便将具体思路分享出来。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/15/Ubuntu18-04-1下通过uwsgi和nginx部署django项目并连接mysql数据库/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1328,264 +1584,6 @@ dict0={v:k for k,v in m.items()}
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/09/Python-文件读写操作/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Johnjgh">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Johnjgh's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/09/Python-文件读写操作/" itemprop="url">python 文件读写操作</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-09T15:34:55+08:00">
-                2019-01-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>file = open(file_name，mode)<br><strong>mode(打开文件的模式)：</strong><br>t    文本模式 (默认)。</p>
-<p>x    写模式，新建一个文件，如果该文件已存在则会报错。</p>
-<p>b    二进制模式。</p>
-<p><em>+</em> 打开一个文件进行更新(可读可写)。</p>
-<p>r    以只读方式打开文件。文件的指针将会放在文件的开头。这是默认模式。</p>
-<p>rb    以二进制格式打开一个文件用于只读。文件指针将会放在文件的开头。这是默认模式。一般用于非文本文件如图片等。</p>
-<p>r+    打开一个文件用于读写。文件指针将会放在文件的开头。</p>
-<p>rb+    以二进制格式打开一个文件用于读写。文件指针将会放在文件的开头。一般用于非文本文件如图片等。</p>
-<p>w    打开一个文件只用于写入。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。</p>
-<p>wb    以二进制格式打开一个文件只用于写入。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。一般用于非文本文件如图片等。</p>
-<p>w+    打开一个文件用于读写。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。</p>
-<p>wb+    以二进制格式打开一个文件用于读写。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。一般用于非文本文件如图片等。</p>
-<p>a    打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，创建新文件进行写入。</p>
-<p>ab    以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，创建新文件进行写入。</p>
-<p>a+    打开一个文件用于读写。如果该文件已存在，文件指针将会放在文件的结尾。文件打开时会是追加模式。如果该文件不存在，创建新文件用于读写。</p>
-<p>ab+    以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。如果该文件不存在，创建新文件用于读写。</p>
-<p>file.close()：关闭文件<br>file.read()：读取文件<br>file.seek()：将指针定位到指定位置<br>file.flush()：刷新文件，如写文件后不想关闭文件，可以刷新后查看文件。<br>tell()：返回指针当前的位置</p>
-<p>file.closed：返回true如果文件已被关闭，否则返回false。<br>file.mode：返回被打开文件的访问模式。<br>file.name：返回文件的名称。<br>file.softspace：如果用print输出后，必须跟一个空格符，则返回false，否则返回true。</p>
-<p>注：使用open()打开文件后需要在读写完成后使用close()方法关闭文件。使用with open(‘文件路径’) as f: 可以自动调用f.close()而不需要在后面单独写一行代码关闭文件。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/04/Python-os和os-path模块常用的方法/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Johnjgh">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Johnjgh's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/04/Python-os和os-path模块常用的方法/" itemprop="url">Python os和os.path模块常用的方法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-04T21:47:03+08:00">
-                2019-01-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>os</strong><br>os.sep:取代操作系统特定的路径分隔符（如‘\’等）<br>os.name:指示你正在使用的工作平台。比如对于Windows，它是’nt’，而对于Linux/Unix用户，它是’posix’。<br>os.getcwd:得到当前工作目录，即当前python脚本工作的目录路径。<br>os.getenv()和os.putenv:分别用来读取和设置环境变量<br>os.listdir():返回指定目录下的所有文件和目录名<br>os.remove(file):删除一个文件<br>os.stat（file）:获得文件属性<br>os.chmod(file):修改文件权限和时间戳<br>os.mkdir(name):创建目录<br>os.rmdir(name):删除目录<br>os.removedirs（r“c：\python”）:删除多个目录<br>os.system():运行shell命令<br>os.exit():终止当前进程<br>os.linesep:给出当前平台的行终止符。例如，Windows使用’\r\n’，Linux使用’\n’而Mac使用’\r’<br>os.listdir(dirname):列出dirname下的目录和文件<br>os.getcwd():获得当前工作目录<br>os.curdir:返回当前目录（’.’）<br>os.chdir(dirname):改变工作目录到dirname<br><strong>os.path</strong><br>os.path.split():返回一个路径的目录名和文件名<br>os.path.isfile()和os.path.isdir()分别检验给出的路径是一个目录还是文件<br>os.path.exists():检验给出的路径是否真的存在<br>os.path.isdir(name):判断name是不是目录，不是目录就返回false<br>os.path.isfile(name):判断name这个文件是否存在，不存在返回false<br>os.path.exists(name):判断是否存在文件或目录name<br>os.path.getsize(name):或得文件大小，如果name是目录返回0L<br>os.path.abspath(name):获得绝对路径<br>os.path.isabs():判断是否为绝对路径<br>os.path.normpath(path):规范path字符串形式<br>os.path.split(name):分割文件名与目录（事实上，如果你完全使用目录，它也会将最后一个目录作为文件名而分离，同时它不会判断文件或目录是否存在）<br>os.path.splitext():分离文件名和扩展名<br>os.path.join(path,name):连接目录与文件名或目录<br>os.path.basename(path):返回文件名<br>os.path.dirname(path):返回文件路径</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1636,7 +1634,7 @@ dict0={v:k for k,v in m.items()}
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1677,7 +1675,7 @@ dict0={v:k for k,v in m.items()}
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

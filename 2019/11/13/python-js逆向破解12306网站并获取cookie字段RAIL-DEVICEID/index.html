@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="python模拟登录12306时必须要有的一个cookie参数就是RAIL_DEVICEID，否则是登录不成功的，那么这个RAIL_DEVICEID是从哪里来的呢？下面我们来一步步分析。 1、RAIL_DEVICEID如何获取首先可以用chrome浏览器打开12306网站，先清空浏览器的缓存，打开开发者工具，然后刷新，找到RAIL_DEVICEID的值，再全局搜索，可以发现这个值是服务器返回的，所">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python-js逆向破解12306网站并获取cookie字段RAIL_DEVICEID">
+<meta property="og:url" content="http://yoursite.com/2019/11/13/python-js逆向破解12306网站并获取cookie字段RAIL-DEVICEID/index.html">
+<meta property="og:site_name" content="Johnjgh&#39;s blog">
+<meta property="og:description" content="python模拟登录12306时必须要有的一个cookie参数就是RAIL_DEVICEID，否则是登录不成功的，那么这个RAIL_DEVICEID是从哪里来的呢？下面我们来一步步分析。 1、RAIL_DEVICEID如何获取首先可以用chrome浏览器打开12306网站，先清空浏览器的缓存，打开开发者工具，然后刷新，找到RAIL_DEVICEID的值，再全局搜索，可以发现这个值是服务器返回的，所">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-03-09T05:44:49.161Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python-js逆向破解12306网站并获取cookie字段RAIL_DEVICEID">
+<meta name="twitter:description" content="python模拟登录12306时必须要有的一个cookie参数就是RAIL_DEVICEID，否则是登录不成功的，那么这个RAIL_DEVICEID是从哪里来的呢？下面我们来一步步分析。 1、RAIL_DEVICEID如何获取首先可以用chrome浏览器打开12306网站，先清空浏览器的缓存，打开开发者工具，然后刷新，找到RAIL_DEVICEID的值，再全局搜索，可以发现这个值是服务器返回的，所">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/11/13/python-js逆向破解12306网站并获取cookie字段RAIL-DEVICEID/">
+
+
+
+
+
+  <title>python-js逆向破解12306网站并获取cookie字段RAIL_DEVICEID | Johnjgh's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Johnjgh's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/13/python-js逆向破解12306网站并获取cookie字段RAIL-DEVICEID/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Johnjgh">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Johnjgh's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python-js逆向破解12306网站并获取cookie字段RAIL_DEVICEID</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-13T10:53:15+08:00">
+                2019-11-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><code>python</code>模拟登录12306时必须要有的一个<code>cookie</code>参数就是<code>RAIL_DEVICEID</code>，否则是登录不成功的，那么这个<code>RAIL_DEVICEID</code>是从哪里来的呢？下面我们来一步步分析。</p>
+<h2 id="1、RAIL-DEVICEID如何获取"><a href="#1、RAIL-DEVICEID如何获取" class="headerlink" title="1、RAIL_DEVICEID如何获取"></a>1、RAIL_DEVICEID如何获取</h2><p>首先可以用chrome浏览器打开12306网站，先清空浏览器的缓存，打开开发者工具，然后刷新，找到<code>RAIL_DEVICEID</code>的值，再全局搜索，可以发现这个值是服务器返回的，所以我们应该分析<code>ajax</code>请求的<code>url</code>是如何生成的。</p>
+<h2 id="2、定位ajax请求在JS的位置"><a href="#2、定位ajax请求在JS的位置" class="headerlink" title="2、定位ajax请求在JS的位置"></a>2、定位ajax请求在JS的位置</h2><p>在知道这个<code>ajax</code>请求的url之后，可以全局搜索url中的关键字段，例如<code>HttpZF/logdevice</code>这部分（需一点点尝试），此时可以发现在<code>GetJS</code>这个文件中找到了这部分url字段，那么我们就已经定位到js生成url的位置了。</p>
+<h2 id="3、分析url请求链接的拼接字段"><a href="#3、分析url请求链接的拼接字段" class="headerlink" title="3、分析url请求链接的拼接字段"></a>3、分析url请求链接的拼接字段</h2><p>接下来，我们来分析这个<code>url</code>是如何拼接成的，从<code>js</code>中扒下来的url拼接代码是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"https://kyfw.12306.cn/otn/HttpZF/logdevice"</span> + (<span class="string">"?algID\x3dBikJbiWz0u\x26hashCode\x3d"</span> + e + a)</span><br></pre></td></tr></table></figure>
+<p>这里总共是四个部分，第一部分是固定不变的，第二部分是每次请求获取GetJS文件时服务器返回的，也就是会变的，可以从<code>GetJS</code>文件中提取（其中<code>\x3d</code>是”=”，<code>\x26</code>是”&amp;”），第三部分和第四部分都是js生成的，可以通过断点调试找到它们的生成过程。</p>
+<h2 id="4、url中e和a如何生成"><a href="#4、url中e和a如何生成" class="headerlink" title="4、url中e和a如何生成"></a>4、url中e和a如何生成</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> a = <span class="string">""</span>, e = <span class="string">""</span>, g = c.getpackStr(b), k = [], q = [], t = [], l = [], p = <span class="number">0</span>; p &lt; g.length; p++)</span><br><span class="line">    <span class="string">"new"</span> != g[p].value &amp;&amp; <span class="number">-1</span> == Eb.indexOf(g[p].key) &amp;&amp; (<span class="number">-1</span> != Bb.indexOf(g[p].key) ? q.push(g[p]) : <span class="number">-1</span> != Db.indexOf(g[p].key) ? t.push(g[p]) : <span class="number">-1</span> != Cb.indexOf(g[p].key) ? l.push(g[p]) : k.push(g[p]));</span><br><span class="line">g = <span class="string">""</span>;</span><br><span class="line"><span class="keyword">for</span> (p = <span class="number">0</span>; p &lt; q.length; p++)</span><br><span class="line">    g = g + q[p].key.charAt(<span class="number">0</span>) + q[p].value;</span><br><span class="line">q = <span class="string">""</span>;</span><br><span class="line"><span class="keyword">for</span> (p = <span class="number">0</span>; p &lt; l.length; p++)</span><br><span class="line">    q = <span class="number">0</span> == p ? q + l[p].value : q + <span class="string">"x"</span> + l[p].value;</span><br><span class="line">l = <span class="string">""</span>;</span><br><span class="line"><span class="keyword">for</span> (p = <span class="number">0</span>; p &lt; t.length; p++)</span><br><span class="line">    l = <span class="number">0</span> == p ? l + t[p].value : l + <span class="string">"x"</span> + t[p].value;</span><br><span class="line">k.push(<span class="keyword">new</span> n(<span class="string">"storeDb"</span>,g));</span><br><span class="line">k.push(<span class="keyword">new</span> n(<span class="string">"srcScreenSize"</span>,q));</span><br><span class="line">k.push(<span class="keyword">new</span> n(<span class="string">"scrAvailSize"</span>,l));</span><br><span class="line"><span class="string">""</span> != d &amp;&amp; k.push(<span class="keyword">new</span> n(<span class="string">"localCode"</span>,pb(d)));</span><br><span class="line">e = c.hashAlg(k, a, e);</span><br><span class="line">a = e.key;</span><br><span class="line">e = e.value;</span><br><span class="line">a += <span class="string">"\x26timestamp\x3d"</span> + (<span class="keyword">new</span> <span class="built_in">Date</span>).getTime();</span><br><span class="line">$a.getJSON(<span class="string">"https://kyfw.12306.cn/otn/HttpZF/logdevice"</span> + (<span class="string">"?algID\x3dBikJbiWz0u\x26hashCode\x3d"</span> + e + a), <span class="literal">null</span>, <span class="function"><span class="keyword">function</span>(<span class="params">a</span>) </span>&#123;</span><br></pre></td></tr></table></figure>
+<p>上面是生成e和a的js代码，其实就在<code>url</code>拼接的上面，这里可以看到，<code>e</code>和<code>a</code>分别对应另一个变量的<code>value</code>和<code>key</code>，而这个变量是调用<code>c.hashAlg</code>方法生成，传入了<code>k，a，e</code>这三个值，通过断点或者观察代码，可以发现其实<code>a</code>和<code>e</code>都是空字符串，所以只要得到<code>k</code>的值即可，这里我们可以将这一段代码扒下来，封装成一个函数，把最终的<code>url</code>赋值给一个变量，然后返回，用<code>python</code>执行这段代码，就可以得到<code>url</code>了。但是，这里有几个外部变量和外部函数，我们要如何去拿到它们呢？</p>
+<h2 id="5、分析外部变量和外部函数"><a href="#5、分析外部变量和外部函数" class="headerlink" title="5、分析外部变量和外部函数"></a>5、分析外部变量和外部函数</h2><p>在封装成函数后，这里需要得到的是<code>c.getpackStr</code>和<code>c.hashAlg</code>以及<code>n，pb</code>这四个函数和<code>d，Eb，Bb，Db，Cb</code>这五个变量，我们来一一分析它们，先分析<code>n，pb</code>这两个函数，可以通过断点调试找到它们，只要把它们拿出来添加到<code>js</code>代码中即可，可以直接调用，这里不多赘述；<code>d</code>是在前面赋值的，调试后可发现它其实是本地局域网的<code>ip</code>地址，可以写死；<code>Eb，Bb，Db，Cb</code>是不变的，同样可以写死；而<code>c.getpackStr</code>通过断点调试，可以发现它最终返回的是一个数组，其中每个元素都是通过n函数得到的一个实例对象，而且这些都是浏览器的相关信息，因此我们可以猜测它是不变，返回值赋值给g变量，此时我们可以通过断点拿到<code>g</code>的值，然后在代码中写死这个<code>g</code>变量。<br>注：这里<code>g</code>变量中有一个<code>cookieCode</code>的值是一段字符串，这其实是个坑，这个值就是在第一步中服务器返回的，有可能你看了发现并没有，那是因为只要<code>g</code>变量中有这个值，那么服务器就不返回该值，所以这个在最开始是并没有值的，此时返回的内容就会有这个值，因此我们可以直接将这个值删除。</p>
+<h2 id="6、调用hashAlg函数执行加密"><a href="#6、调用hashAlg函数执行加密" class="headerlink" title="6、调用hashAlg函数执行加密"></a>6、调用hashAlg函数执行加密</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">hashAlg: <span class="function"><span class="keyword">function</span>(<span class="params">a, b, c</span>) </span>&#123;</span><br><span class="line">    a.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> c, d;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">"object"</span> === <span class="keyword">typeof</span> a &amp;&amp; <span class="string">"object"</span> === <span class="keyword">typeof</span> b &amp;&amp; a &amp;&amp; b)</span><br><span class="line">            <span class="keyword">return</span> c = a.key,</span><br><span class="line">            d = b.key,</span><br><span class="line">            c === d ? <span class="number">0</span> : <span class="keyword">typeof</span> c === <span class="keyword">typeof</span> d ? c &lt; d ? <span class="number">-1</span> : <span class="number">1</span> : <span class="keyword">typeof</span> c &lt; <span class="keyword">typeof</span> d ? <span class="number">-1</span> : <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">throw</span> <span class="string">"error"</span>;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> d = <span class="number">0</span>; d &lt; a.length; d++) &#123;</span><br><span class="line">        <span class="keyword">var</span> e = a[d].key.replace(<span class="built_in">RegExp</span>(<span class="string">"%"</span>, <span class="string">"gm"</span>), <span class="string">""</span>)</span><br><span class="line">          , f = <span class="string">""</span></span><br><span class="line">          , f = <span class="string">"string"</span> == <span class="keyword">typeof</span> a[d].value ? a[d].value.replace(<span class="built_in">RegExp</span>(<span class="string">"%"</span>, <span class="string">"gm"</span>), <span class="string">""</span>) : a[d].value;</span><br><span class="line">        <span class="string">""</span> !== f &amp;&amp; (c += e + f,</span><br><span class="line">        b += <span class="string">"\x26"</span> + (<span class="keyword">void</span> <span class="number">0</span> == gb[e] ? e : gb[e]) + <span class="string">"\x3d"</span> + f)</span><br><span class="line">    &#125;</span><br><span class="line">    a = R.SHA256(c).toString(R.enc.Base64);</span><br><span class="line">    c = a.length;</span><br><span class="line">    d = a.split(<span class="string">""</span>);</span><br><span class="line">    <span class="keyword">for</span> (e = <span class="number">0</span>; e &lt; <span class="built_in">parseInt</span>(c / <span class="number">2</span>); e++)</span><br><span class="line">        <span class="number">0</span> == e % <span class="number">2</span> &amp;&amp; (f = a.charAt(e),</span><br><span class="line">        d[e] = d[c - <span class="number">1</span> - e],</span><br><span class="line">        d[c - <span class="number">1</span> - e] = f);</span><br><span class="line">    a = d.join(<span class="string">""</span>);</span><br><span class="line">    c = a.length;</span><br><span class="line">    d = <span class="string">""</span>;</span><br><span class="line">    d = <span class="number">0</span> == a.length % <span class="number">2</span> ? a.substring(c / <span class="number">2</span>, c) + a.substring(<span class="number">0</span>, c / <span class="number">2</span>) : a.substring(c / <span class="number">2</span> + <span class="number">1</span>, c) + a.charAt(c / <span class="number">2</span>) + a.substring(<span class="number">0</span>, c / <span class="number">2</span>);</span><br><span class="line">    a = Qa(d);</span><br><span class="line">    c = Qa(a);</span><br><span class="line">    c = R.SHA256(c).toString(R.enc.Base64);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> n(b,c)</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p><code>c.hashAlg</code>才是<code>js</code>加密的重头戏，上面是通过断点调试得到的<code>hashAlg</code>的函数，这里就是生成url加密部分的代码，我们同样把它扒下来封装成函数添加到刚刚的js代码中，老办法，找外部函数或变量，这里传进来的就是第4步中的<code>k，a，e</code>，只要在js代码中调用这个<code>hashAlg</code>即可，然后就是<code>R.SHA256，R.enc.Base64</code>以及<code>gb，Qa，n，gb</code>也是一个固定不变的字典，所以可以写死，Qa可以直接扒下来添加到代码中调用，n在第5步已经添加了；而<code>R.SHA256</code>和<code>R.enc.Base64</code>是两个加密算法，可以下载<code>CryptoJS</code>，然后将这两个算法的代码复制粘贴到我们的js代码中，将这里<code>R</code>替换成<code>CryptoJS</code>即可，这里提供<code>CryptoJS</code>文件的下载地址：<br><a href="https://code.google.com/archive/p/crypto-js/downloads" target="_blank" rel="noopener">https://code.google.com/archive/p/crypto-js/downloads</a><br><em>注：需要科学上网</em></p>
+<h2 id="7、如何处理返回的动态JS加密算法"><a href="#7、如何处理返回的动态JS加密算法" class="headerlink" title="7、如何处理返回的动态JS加密算法"></a>7、如何处理返回的动态JS加密算法</h2><p>这里基本上我们的js代码已经处理完成了，可以直接使用<code>python</code>的<code>execjs</code>执行<code>js</code>语句，调用函数，获得url，再使用url去获取<code>RAIL_DEVICEID</code>的值，但是，这里有一个问题，其它的js代码都是不变，而在第6步中的<code>hashAlg</code>函数中，其中的加密算法是会变的，在<code>for</code>循环结束后到<code>return</code>之间的内容是变化，而且<code>Qa</code>也会随之变化，那么如何根据这个变化来随时变换<code>js</code>代码，我是通过搜索，定位，抠取代码，然后拼接来解决这个问题，但是这里由于某些原因，不便将具体思路分享出来。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/15/Ubuntu18-04-1下通过uwsgi和nginx部署django项目并连接mysql数据库/" rel="next" title="'Ubuntu18.04.1下通过uwsgi和nginx部署django项目并连接mysql数据库'">
+                <i class="fa fa-chevron-left"></i> 'Ubuntu18.04.1下通过uwsgi和nginx部署django项目并连接mysql数据库'
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/12/逆向某国内著名短视频app，实现视频数据爬取/" rel="prev" title="逆向某国内著名短视频app，实现视频数据爬取">
+                逆向某国内著名短视频app，实现视频数据爬取 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Johnjgh</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、RAIL-DEVICEID如何获取"><span class="nav-number">1.</span> <span class="nav-text">1、RAIL_DEVICEID如何获取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、定位ajax请求在JS的位置"><span class="nav-number">2.</span> <span class="nav-text">2、定位ajax请求在JS的位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、分析url请求链接的拼接字段"><span class="nav-number">3.</span> <span class="nav-text">3、分析url请求链接的拼接字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、url中e和a如何生成"><span class="nav-number">4.</span> <span class="nav-text">4、url中e和a如何生成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、分析外部变量和外部函数"><span class="nav-number">5.</span> <span class="nav-text">5、分析外部变量和外部函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6、调用hashAlg函数执行加密"><span class="nav-number">6.</span> <span class="nav-text">6、调用hashAlg函数执行加密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7、如何处理返回的动态JS加密算法"><span class="nav-number">7.</span> <span class="nav-text">7、如何处理返回的动态JS加密算法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Johnjgh</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
